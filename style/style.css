@@ -13,7 +13,6 @@ nav{
 nav a:link {
     text-decoration: none;
     font-family:fantasy;
-
     color: white;}
 nav a:visited {text-decoration: none;}
 nav a:hover {
@@ -34,8 +33,7 @@ nav a:active {text-decoration: underline;}
   float: right;
 }
 #status{
-  background-color: white;
-  color: white;
+  font color = white;
 }
 
 #status{
@@ -116,7 +114,7 @@ body{
 100% {left: 1600px;}
 }*/
 
-/*footer{
+footer{
   color: yellow;
   background: -webkit-linear-gradient(#414141, #262626);
   background: -o-linear-gradient(#414141, #262626);
@@ -132,7 +130,7 @@ body{
   font-size: 35px;
   position: fixed;
 
-}*/
+}
 
 .facePic{
   width: 150px;
