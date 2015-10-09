@@ -1,3 +1,6 @@
+array = [];
+
+
 window.fbAsyncInit = function() {
   FB.init({
     appId      : '1039844299401839',
@@ -97,53 +100,75 @@ function testAPI() {
 }
 
 function getIdDesc(){
-  FB.api(
-    '/815157038515764',
-    'GET',
-    {"fields":"albums{cover_photo,location,likes},description"},
+  FB.api('/815157038515764','GET', {"fields":"albums{cover_photo,location,likes},description"},
     function(response) {
       descriptionArea.innerHTML=response.description;
-
       for (var i = 0; i < response.albums.data.length; i++) {
         var description = response.albums.data[i].location;
-
-        if(!description)continue;
-
+        if(!description)continue;                                 //Iterate to next if no location
         var n = description.indexOf("Australia");
-
-        if (n != -1){
+        if (n != -1){                                             //Check for Australia
           likes = response.albums.data[i].likes.data;
-          numberOfLikes = likes.length;
-          url = response.albums.data[i].id;
-
-          getThumbSource(url, description, numberOfLikes);
-        }
-      }
+          numberOfLikes = likes.length;                           //Save likes
+          url = response.albums.data[i].id;                       //Save ID of CoverAlbum
+          getThumbSource(url, description, numberOfLikes);        // call method to create URL, Desc and Likes
+        } //End IF
+       } //END FOR
     }
   );
+    albumListener(array);                                         //Send to albumListener which albumID are active
 }
 
-function getThumbSource(id, desc, likes){
+function getThumbSource(id, desc, likes){                           /*GET AUSTRALIA*/
   var pic;
-  FB.api('/'+id, 'GET', {"fields":"cover_photo"},
+  FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
   function(response) {
-    //console.log("This is coverPhoto ID: "+ response.cover_photo.id);
-    getCoverSource = response.cover_photo.id;
+    getCoverSource = response.cover_photo.id;                       /*Getting photos + id to coverPhoto*/
+    FB.api( '/'+getCoverSource, 'GET', {"fields":"source, id, link, album"},
+      function (response) {
+          albumId = response.album.id;
+          array.push(albumId);
+          // console.log(array)FUNKER;
+          albumListener(array);
+          pic = response.source;
+           createAlbum(albumId);
+           console.log("ID: " +id);
 
-    FB.api( '/'+getCoverSource, 'GET', {"fields":"source"},
-    function (response) {
-      //console.log(response.source);
-      pic = response.source;
-      //console.log("THIS IS PIC:  " +pic);
-
-      albumArea.innerHTML+=
-      "<figure id='faceFigure'><img class='facePic' src='"+pic+
-      "'><figcaption id='faceDesc'>" + desc + "\n Likes: " + likes +
-      "</figcaption></figure>";
-
-
+          albumArea.innerHTML+=
+          "<figure class='faceFigure' id='"+id+"'><img class='facePic' src='"+pic+
+          "'><figcaption id=''>" + desc + "\n Likes: " + likes +
+          "</figcaption></figure>";
     }
   );
 }
 );
+console.log(array);
+}
+
+
+
+function createAlbum(albumId){
+  FB.api(
+  '/' + albumId,'GET', {"fields":"photos"},
+  function(response) {
+    for (var i = 0; i < response.photos.data.length; i++) {
+
+       //console.log(response.photos.data[i].name);
+
+    }
+      // console.log(response.photos);
+  }
+);
+}
+function albumListener(albums){
+
+//console.log(albums);
+
+}
+
+function albumListener(albums){
+  console.log(albums);
+
+
+
 }

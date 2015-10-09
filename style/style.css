@@ -54,7 +54,7 @@ body{
   background-color: #61AFEF;
 }
 
-#faceFigure{
+.faceFigure{
   width: 100px;
   height: 100px;
   margin: 5%;
@@ -135,4 +135,18 @@ footer{
 .facePic{
   width: 150px;
   height: 150px;
+}
+
+#ttt{
+  width: 50px;
+  height: 50px;
+  border: solid red;
+}
+
+
+#816520808379387{
+  width: 500px;
+  height: 500px;
+  cursor: pointer;
+
 }
