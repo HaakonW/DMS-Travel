@@ -1,0 +1,55 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>DMS Travel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/facebook.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <script type="text/javascript" src="js/script.js"></script>
+  </head>
+  <body>
+    <nav class="content">
+
+     <div id="navLinks">
+       <a class="navLinks" href="index.html">Home</a>
+       <a class="navLinks" href="doc.html">Documentation</a>
+       <a class="navLinks" href="about.html">About</a>
+     </div>
+     <div id="faceLogin">
+       <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+         </fb:login-button>
+         <!-- <button id="logOutFacebook">Log Out</button> -->
+       <div id="status">PLEASE LOGIN</div>
+     </div>
+    </div><!--end FacebookLogin -->
+    </nav>
+
+    <div id="splashScreen">
+      <div id="splashContent">
+        <div id="welcomeText">
+          <p>DMS</p>
+          <p>TRAVEL</p>
+        </div>
+
+
+
+    </div>
+  </div> <!--End splashScreen-->
+  <div id="descriptionArea">DescArea</div>
+  <div id="albumArea">AlbumArea</div>
+<div>
+  <img id="plane" src="pics/plane.jpg" alt="">
+</div>
+  <footer>
+    <span id="footerText">
+      ------------------  ------------------ ------------------ ------------------
+      ------------------  ------------------ ------------------ ------------------
+      ------------------  ------------------ ------------------ ------------------
+      ------------------  ------------------ ------------------ ------------------
+
+    </span>
+  </footer>
+</body>
+</html>
