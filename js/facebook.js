@@ -114,18 +114,17 @@
            descriptionArea.innerHTML=response.description;
 
            for (var i = 0; i < response.albums.data.length; i++) {
-             description = response.albums.data[i].location;
+             var description = response.albums.data[i].location;
 
              if(!description)continue;
 
+              var n = description.indexOf("Australia");
 
-
-             var n = description.indexOf("Australia");
-             /*CHECK FOR SMALL LETTERS?*/
              if (n != -1){
                likes = response.albums.data[i].likes.data;
                numberOfLikes = likes.length;
                url = response.albums.data[i].id;
+
                getThumbSource(url, description, numberOfLikes);
              }
            }
@@ -145,9 +144,10 @@
            //console.log(response.source);
            pic = response.source;
            //console.log("THIS IS PIC:  " +pic);
+
            albumArea.innerHTML+=
            "<figure id='faceFigure'><img class='facePic' src='"+pic+
-           "'><figcaption id='faceDesc'>" + description + "\n Likes: " + likes +
+           "'><figcaption id='faceDesc'>" + desc + "\n Likes: " + likes +
           "</figcaption></figure>";
 
 
