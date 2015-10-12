@@ -93,9 +93,13 @@ window.fbAsyncInit = function() {
 function testAPI() {
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
-    console.log('Successful login for: ' + response.name);
+    console.log(response);
+    console.log(response);
+    userLoggedIn = response.id;
+    console.log(userLoggedIn);
+    console.log('Successful login for: ' + response.name + userLoggedIn);
     document.getElementById('status').innerHTML =
-    'Thanks for logging in, ' + response.name + '!';
+    'Thanks for logging in, ' + response.name +'!';
   });
 }
 
@@ -117,7 +121,7 @@ function getIdDesc(){
        } //END FOR
     }
   );
-    albumListener(array);                                         //Send to albumListener which albumID are active
+    // albumListener(array);                                         //Send to albumListener which albumID are active
 }
 
 function getThumbSource(id, desc, likes){                           /*GET AUSTRALIA*/
@@ -131,7 +135,7 @@ function getThumbSource(id, desc, likes){                           /*GET AUSTRA
           albumId = response.album.id;
           array.push(albumId);
           // console.log(array)FUNKER;
-          albumListener(array);
+          // albumListener(array);
           pic = response.source;
           albumArea.innerHTML+=
           "<figure class='faceFigure' id='"+id+"'><img class='facePic' src='"+pic+
@@ -144,19 +148,43 @@ function getThumbSource(id, desc, likes){                           /*GET AUSTRA
 }
 
 function createAlbum(albumId){
+  albumArea.innerHTML="";
   FB.api(
-  '/' + albumId,'GET', {"fields":"photos{images}"},
+  '/' + albumId,'GET', {"fields":"photos{images, name, likes}"},
   function(response) {
     for (var i = 0; i < response.photos.data.length; i++) {
        temp = response.photos.data[i].images;
        bigPic = temp[0].source;
+       desc = response.photos.data[i].name;
+       if (typeof response.photos.data[i].likes === "undefined"  ) {likesCounter = 0;  }
+       else {likesCounter = response.photos.data[i].likes.data.length; }
+       if (!desc) desc = "No title ";
        for (var j = 0; j < temp.length; j++) {
-         if (temp[j].height === 320) { thumbSource = temp[j].source; }
+         if (temp[j].height === 320) thumbSource = temp[j].source;
+        //  console.log(response.photos.data[i].likes);
+        //  console.log(response.photos.data[i].likes.data);
+        //  console.log(response.photos.data[i].likes.data[j].id);
+        //  tempID = response.photos.data[i].likes.data[j];
+        //  console.log(tempID);
+         //
+        //  if(typeof response.photos.data[i].likes.data[j].id === "undefined") {tempID = 0;}
+        //  else {  tempID = response.photos.data[i].likes.data[j].id;}
+
+        //  console.log(tempID);
+          // if(userLoggedIn === )
+        //  if (typeof response.photos.data[i].likes.data[j].id === "undefined"  ) {nameList = 0;  }
+        //  else {nameList = response.photos.data[i].likes.data[j].id; }
+         //
+        //   //  nameList = response.photos.data[i].likes.data[j].id;
+         //
+        //     console.log(nameList);
+        //  if (tempID === userLoggedIn) { console.log(userLoggedIn);  }
        } // END FOR
+       var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
+       pic += "<img class='photoAlbum' src='" + thumbSource + "'></a>";
+       albumArea.innerHTML += "<figure>" + pic +"<figcaption>" + desc  +"| Likes: "+likesCounter+"</figcaption></figure>";
     } // END OUTER FOR
-    var pic = "<a href='" + bigPic+"'data-lightbox='" + "myPhoto" + "data-title='" + desc + ">";
-    pic += "<img class='photoAlbum' src='" + thumbSource + "'></a>";
-    albumArea.innerHTML = "<figure>" + pic +"<figcaption>" + desc +"</figcaption></figure>";
+
   }
 );
 }
@@ -169,12 +197,18 @@ $(document).on('click', '#816520808379387', function() {
 
 $(document).on('click', '#816504545047680', function()
 { console.log("GC");
+temp=816504545047680;
+createAlbum(temp);
 });
 
 $(document).on('click', '#816503235047811', function() {
    console.log("Noosa");
+   temp=816503235047811;
+   createAlbum(temp);
  });
 
 $(document).on('click', '#816508098380658', function() {
    console.log("Heron");
+   temp=816508098380658;
+   createAlbum(temp);
  });
