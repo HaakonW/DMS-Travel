@@ -1,5 +1,5 @@
 array = [];
-
+appID = 815157038515764;
 
 window.fbAsyncInit = function() {
   FB.init({
@@ -29,6 +29,7 @@ function statusChangeCallback(response) {
     accessToken = response.authResponse.accessToken;
     testAPI();
     getIdDesc();
+    getComments();
     $("#splashScreen").hide();
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
@@ -93,8 +94,8 @@ window.fbAsyncInit = function() {
 function testAPI() {
   console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
-    console.log(response);
-    console.log(response);
+    // console.log(response);
+    // console.log(response);
     userLoggedIn = response.id;
     console.log(userLoggedIn);
     console.log('Successful login for: ' + response.name + userLoggedIn);
@@ -104,7 +105,7 @@ function testAPI() {
 }
 
 function getIdDesc(){
-  FB.api('/815157038515764','GET', {"fields":"albums{cover_photo,location,likes},description"},
+  FB.api('/'+appID,'GET', {"fields":"albums{cover_photo,location,likes},description"},
     function(response) {
       descriptionArea.innerHTML=response.description;
       for (var i = 0; i < response.albums.data.length; i++) {
@@ -153,7 +154,7 @@ function createAlbum(albumId){
   '/' + albumId,'GET', {"fields":"photos{images, name, likes}"},
   function(response) {
     for (var i = 0; i < response.photos.data.length; i++) {
-       temp = response.photos.data[i].images;
+      var temp = response.photos.data[i].images;
        bigPic = temp[0].source;
        desc = response.photos.data[i].name;
        if (typeof response.photos.data[i].likes === "undefined"  ) {likesCounter = 0;  }
@@ -212,3 +213,29 @@ $(document).on('click', '#816508098380658', function() {
    temp=816508098380658;
    createAlbum(temp);
  });
+
+function getComments(){
+  FB.api('/'+appID, 'GET', {"fields":"feed"},
+  function(response) {
+     var commentsArray = response.feed.data;
+    for (var i = 0; i < commentsArray.length; i++) {
+      console.log("DETTE ER ID PA HVER KOMMENTAR: " +commentsArray[i].id);
+      dickArray = commentsArray[i].id;
+      dickMaster(dickArray);
+    }
+
+  }
+);
+}
+
+function dickMaster(id){
+  FB.api('/'+id, 'GET', {"fields":"likes{name}"},
+function(response) {
+   console.log(response.likes.data);
+  // for (var i = 0; i < response.likes.data.length; i++) {
+  //   // console.log("HEI");
+  // }
+  // if (response.likes.data[0].id === "815157038515764") {console.log("MR CHEEEEN"); }
+}
+);
+}
