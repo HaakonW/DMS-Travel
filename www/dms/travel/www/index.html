@@ -7,7 +7,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/facebook.js"></script>
     <link rel="stylesheet" type="text/css" href="style/style.css">
-    <script type="text/javascript" src="js/script.js"></script>
   </head>
   <body>
     <nav class="content">
@@ -16,43 +15,51 @@
        <a class="navLinks" href="index.html">Home</a>
        <a class="navLinks" href="doc.html">Documentation</a>
        <a class="navLinks" href="about.html">About</a>
-       <a id="alert" class="navLinks">HEI PÅ DEG</a>
+       <a class="navLinks" id="logo" href="index.html" >DMS TRAVEL</a>
+
      </div>
-     <div id="faceLogin">
-       <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
-         <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-         </fb:login-button>
-         <!-- <button id="logOutFacebook">Log Out</button> -->
-       <div id="status">PLEASE LOGIN</div>
-     </div>
-    </div><!--end FacebookLogin -->
+
     </nav>
 
     <div id="splashScreen">
       <div id="splashContent">
-        <div id="welcomeText">
+        <div id="welcomeLogo">
           <p>DMS</p>
           <p>TRAVEL</p>
         </div>
-
-
-
+        <p id="welcomeText">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus omnis voluptatem ipsa tempore, maiores veritatis, esse, laborum tempora nisi facilis eum? Modi quos ipsam dolore ad aliquid libero, quidem ullam.</p>
     </div>
+    <div id="faceLogin">
+      <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        </fb:login-button>
+        <!-- <button id="logOutFacebook">Log Out</button> -->
+    </div>
+   </div><!--end FacebookLogin -->
   </div> <!--End splashScreen-->
-  <div id="descriptionArea"></div>
-  <div id="albumArea"></div>
+
+<aside>
+  <div id="reviewArea">
+    <h3>Customer reviews</h3>
+    <p id="reviewText"></p>
+  </div>
+  </aside>
+<div>
+<!-- <h1 id="welcomHeader">WELCOME TO DMS TRAVEL </h1>
+<h3>CHECK OUT SOME OF OUR SPECIAL OFFERS TO AUSTRALIA</h3>
+</div> -->
+  <div id="albumArea">
+  </div>
+
 <div>
   <!-- <img id="plane" src="pics/plane.jpg" alt=""> -->
 </div>
-  <!-- <footer>
-    <span id="footerText">
-      ------------------  ------------------ ------------------ ------------------
-      ------------------  ------------------ ------------------ ------------------
-      ------------------  ------------------ ------------------ ------------------
-      ------------------  ------------------ ------------------ ------------------
+   <footer>
+     <div id="status"></div>
 
+    <span id="footerText">
     </span>
-  </footer> -->
+  </footer>
   <script src="lightbox2-master/dist/js/lightbox.js"></script>
 </body>
 </html>

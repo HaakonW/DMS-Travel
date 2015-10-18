@@ -1,5 +1,13 @@
-array = [];
 appID = 815157038515764;
+adminID = 815157038515764;
+
+function loadContent(){
+  getIdDesc();
+  getComments();
+  $("#splashScreen").hide();
+  $("#navLinks").show();
+  document.getElementById('status').innerHTML = "";
+}
 
 window.fbAsyncInit = function() {
   FB.init({
@@ -20,28 +28,23 @@ window.fbAsyncInit = function() {
 // This is called with the results from from FB.getLoginStatus().
 function statusChangeCallback(response) {
   console.log('statusChangeCallback');
-  // The response object is returned with a status field that lets the
-  // app know the current login status of the person.
-  // Full docs on the response object can be found in the documentation
-  // for FB.getLoginStatus().
+
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
     accessToken = response.authResponse.accessToken;
     testAPI();
-    getIdDesc();
-    getComments();
-    $("#splashScreen").hide();
+    loadContent();
+
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
-    document.getElementById('status').innerHTML = 'Please log ' +
-    'into this app.';
+    document.getElementById('status').innerHTML = 'Please log ' +  'into this app.';
   } else {
     // The person is not logged into Facebook, so we're not sure if
     // they are logged into this app or not.
     document.getElementById('status').innerHTML = 'Please log ' +
-    'into Facebook.';
-    $("#albumArea").hide();
-    $("#navLinks").hide();
+    'into Facebook to get access to DMS Travel.';
+    // $("#albumArea").hide();
+    // $("#navLinks").hide();
   }
 }
 // This function is called when someone finishes with the Login
@@ -92,37 +95,32 @@ window.fbAsyncInit = function() {
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
 function testAPI() {
-  console.log('Welcome!  Fetching your information.... ');
   FB.api('/me', function(response) {
-    // console.log(response);
-    // console.log(response);
     userLoggedIn = response.id;
     console.log(userLoggedIn);
     console.log('Successful login for: ' + response.name + userLoggedIn);
-    document.getElementById('status').innerHTML =
-    'Thanks for logging in, ' + response.name +'!';
+    // document.getElementById('faceLogin').innerHTML = '<p id="userStatus">Logged in as: ' + response.name + "</p>";
   });
 }
 
 function getIdDesc(){
   FB.api('/'+appID,'GET', {"fields":"albums{cover_photo,location,likes},description"},
     function(response) {
-      descriptionArea.innerHTML=response.description;
+      footerText.innerHTML=response.description;
       for (var i = 0; i < response.albums.data.length; i++) {
         var description = response.albums.data[i].location;
-        if(!description)continue;                                 //Iterate to next if no location
+        if(!description)continue;                          //Iterate to next if no location
         var n = description.indexOf("Australia");
-        if (n != -1){                                             //Check for Australia
+        if (n != -1){                                      //Check for Australia
           likes = response.albums.data[i].likes.data;
-          numberOfLikes = likes.length;                           //Save likes
+          numberOfLikes = parseInt(likes.length);          //Save likes
+          console.log("DETTE ALBUMET HAR: "+numberOfLikes);
           url = response.albums.data[i].id;
-          // console.log("DETTE ER URL: " + url);
-          getThumbSource(url, description, numberOfLikes);        // call method to create URL, Desc and Likes
+          getThumbSource(url, description, numberOfLikes); // call method to create URL, Desc and Likes
         } //End IF
        } //END FOR
     }
   );
-    // albumListener(array);                                         //Send to albumListener which albumID are active
 }
 
 function getThumbSource(id, desc, likes){                           /*GET AUSTRALIA*/
@@ -130,22 +128,31 @@ function getThumbSource(id, desc, likes){                           /*GET AUSTRA
   FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
   function(response) {
     getCoverSource = response.cover_photo.id;
-    console.log(getCoverSource);                      /*Getting photos + id to coverPhoto*/
     FB.api( '/'+getCoverSource, 'GET', {"fields":"source, id, link, album"},
       function (response) {
-          albumId = response.album.id;
-          array.push(albumId);
-          // console.log(array)FUNKER;
-          // albumListener(array);
+          // albumId = response.album.id;
           pic = response.source;
-          albumArea.innerHTML+=
-          "<figure class='faceFigure' id='"+id+"'><img class='facePic' src='"+pic+
-          "'><figcaption id=''>" + desc + "\n Likes: " + likes +
-          "</figcaption></figure>";
+          // albumArea.innerHTML+=
+          // "<figure class='facebookFigures' id='"+id+"'><img class='thumbPictures' src='"+pic+
+          // "'><figcaption id=''><h4 id='albumDesc'>" + desc + "</h5>" + likes +
+          // " Likes</figcaption></figure>";
+          thumbNails = {  source:pic, description:desc, numberOfLikes:likes  };
+          generateHTML(thumbNails);
+
     }
   );
 }
 );
+}
+function generateHTML(thumbNails){
+  // console.log(thumbNails);
+
+  for (var key in thumbNails) {
+    if (thumbNails.hasOwnProperty(key)) {
+        console.log(key + "   ->   "+thumbNails[key]);
+    }
+}
+
 }
 
 function createAlbum(albumId){
@@ -182,60 +189,37 @@ function createAlbum(albumId){
         //  if (tempID === userLoggedIn) { console.log(userLoggedIn);  }
        } // END FOR
        var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
-       pic += "<img class='photoAlbum' src='" + thumbSource + "'></a>";
-       albumArea.innerHTML += "<figure>" + pic +"<figcaption>" + desc  +"| Likes: "+likesCounter+"</figcaption></figure>";
+       pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
+       albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes</figcaption></figure>";
     } // END OUTER FOR
-
   }
 );
 }
 
-$(document).on('click', '#816520808379387', function() {
-  console.log("BNE");
-  temp=816520808379387;
-  createAlbum(temp);
-});
-
-$(document).on('click', '#816504545047680', function()
-{ console.log("GC");
-temp=816504545047680;
-createAlbum(temp);
-});
-
-$(document).on('click', '#816503235047811', function() {
-   console.log("Noosa");
-   temp=816503235047811;
-   createAlbum(temp);
- });
-
-$(document).on('click', '#816508098380658', function() {
-   console.log("Heron");
-   temp=816508098380658;
-   createAlbum(temp);
- });
+$(document).on('click', '#816520808379387', function() { console.log("BNE");   temp=816520808379387; createAlbum(temp);});
+$(document).on('click', '#816504545047680', function() { console.log("GC");    temp=816504545047680; createAlbum(temp);});
+$(document).on('click', '#816503235047811', function() { console.log("Noosa"); temp=816503235047811; createAlbum(temp);});
+$(document).on('click', '#816508098380658', function() { console.log("Heron"); temp=816508098380658; createAlbum(temp);});
 
 function getComments(){
-  FB.api('/'+appID, 'GET', {"fields":"feed"},
+  FB.api('/'+appID, 'GET', {"fields":"feed{likes, message}"},
   function(response) {
-     var commentsArray = response.feed.data;
-    for (var i = 0; i < commentsArray.length; i++) {
-      console.log("DETTE ER ID PA HVER KOMMENTAR: " +commentsArray[i].id);
-      dickArray = commentsArray[i].id;
-      dickMaster(dickArray);
-    }
-
-  }
+    for (var i = 0; i < response.feed.data.length; i++) {
+      if (typeof response.feed.data[i].message !== "undefined" && typeof response.feed.data[i].likes !== "undefined") {
+          var tempArray = response.feed.data[i].likes.data;
+          for (var j = 0; j < tempArray.length; j++) {
+            if (tempArray[j].id == adminID){
+              console.log(response.feed.data[i].message);
+              message = response.feed.data[i].message;
+              createReview(message);
+            }
+          } //END SECOND FOR
+        }//END CHECK IF
+      } //END FIRST IF
+    } //END FIRST FOR
 );
 }
 
-function dickMaster(id){
-  FB.api('/'+id, 'GET', {"fields":"likes{name}"},
-function(response) {
-   console.log(response.likes.data);
-  // for (var i = 0; i < response.likes.data.length; i++) {
-  //   // console.log("HEI");
-  // }
-  // if (response.likes.data[0].id === "815157038515764") {console.log("MR CHEEEEN"); }
-}
-);
+function createReview(text){
+  document.getElementById('reviewText').innerHTML += "<br>"+ message + "<br>";
 }
