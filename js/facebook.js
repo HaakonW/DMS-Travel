@@ -2,6 +2,7 @@ appID = 815157038515764;
 adminID = 815157038515764;
 
 function loadContent(){
+  console.log("LOAD CONTENT");
   getIdDesc();
   getComments();
   $("#splashScreen").hide();
@@ -132,12 +133,12 @@ function getThumbSource(id, desc, likes){                           /*GET AUSTRA
       function (response) {
           // albumId = response.album.id;
           pic = response.source;
-          // albumArea.innerHTML+=
-          // "<figure class='facebookFigures' id='"+id+"'><img class='thumbPictures' src='"+pic+
-          // "'><figcaption id=''><h4 id='albumDesc'>" + desc + "</h5>" + likes +
-          // " Likes</figcaption></figure>";
-          thumbNails = {  source:pic, description:desc, numberOfLikes:likes  };
-          generateHTML(thumbNails);
+          albumArea.innerHTML+=
+          "<figure class='facebookFigures' id='"+id+"'><img class='thumbPictures' src='"+pic+
+          "'><figcaption id=''><h4 id='albumDesc'>" + desc + "</h5>" + likes +
+          " Likes</figcaption></figure>";
+          // thumbNails = {  source:pic, description:desc, numberOfLikes:likes  };
+          // generateHTML(thumbNails);
 
     }
   );
