@@ -2,7 +2,7 @@ appID = 815157038515764;
 adminID = 815157038515764;
 
 function loadContent(){
-  getIdDesc();
+  getIdDescforThumbs();
   getComments();
   $("#splashScreen").hide();
   $("#navLinks").show();
@@ -97,7 +97,7 @@ function testAPI() {
   });
 }
 
-function getIdDesc(){
+function getIdDescforThumbs(){
   FB.api('/'+appID,'GET', {"fields":"albums{cover_photo,location,likes},description"},
     function(response) {
       footerText.innerHTML=response.description;
@@ -110,14 +110,14 @@ function getIdDesc(){
           numberOfLikes = parseInt(likes.length);          //Save likes
           url = response.albums.data[i].id;
           // console.log(url);
-          getThumbSource(url, description, numberOfLikes); // call method to create URL, Desc and Likes
+          createThumbs(url, description, numberOfLikes); // call method to create URL, Desc and Likes
         } //End IF
        } //END FOR
     }
   );
 }
 
-function getThumbSource(id, desc, likes){                           /*GET AUSTRALIA*/
+function createThumbs(id, desc, likes){                           /*GET AUSTRALIA*/
   var pic;
   FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
   function(response) {
@@ -138,69 +138,46 @@ function getThumbSource(id, desc, likes){                           /*GET AUSTRA
 }
 );
 }
-function generateHTML(thumbNails){
-  // console.log(thumbNails);
-//
-//   for (var key in thumbNails) {
-//     if (thumbNails.hasOwnProperty(key)) {
-//         console.log(key + "   ->   "+thumbNails[key]);
-//     }
-// }
 
-}
 
-function createAlbum(albumId){
+function createPhotoAlbum(albumId){
   albumArea.innerHTML="";
   FB.api(
-  '/' + albumId,'GET', {"fields":"photos{images, name, likes}"},
-  function(response) {
-    for (var i = 0; i < response.photos.data.length; i++) {
-      var temp = response.photos.data[i].images;
-       bigPic = temp[0].source;
-       desc = response.photos.data[i].name;
-       if (typeof response.photos.data[i].likes === "undefined"){
-         likesCounter = 0;
-       }
-       else {
-         likesCounter = response.photos.data[i].likes.data.length;
-         boolean = didYouLike(response.photos.data[i].likes.data);
-       }
-       if (!desc) desc = "No title ";
-       for (var j = 0; j < temp.length; j++) {
-         if (temp[j].height === 320) thumbSource = temp[j].source;
-        //  console.log(response.photos.data[i].id );
-        //  console.log(response.photos.data[i].likes.data);
-        //  console.log(response.photos.data[i].likes.data[j].id);
-        //  tempID = response.photos.data[i].likes.data[j];
-        //  console.log(tempID);
-         //
-        //  if(typeof response.photos.data[i].likes.data[j].id === "undefined") {tempID = 0;}
-        //  else {  tempID = response.photos.data[i].likes.data[j].id;}
+    '/' + albumId,'GET', {"fields":"photos{images, name, likes}"},
+    function(response) {
+      for (var i = 0; i < response.photos.data.length; i++) {
+         var temp = response.photos.data[i].images;
+        bigPic = temp[0].source;
+        desc = response.photos.data[i].name;
+        if (!desc) desc = "No title ";
 
-        //  console.log(tempID);
-          // if(userLoggedIn === )
-        //  if (typeof response.photos.data[i].likes.data[j].id === "undefined"  ) {nameList = 0;  }
-        //  else {nameList = response.photos.data[i].likes.data[j].id; }
-         //
-        //   //  nameList = response.photos.data[i].likes.data[j].id;
-         //
-        //     console.log(nameList);
-        //  if (tempID === userLoggedIn) { console.log(userLoggedIn);  }
-      } // END INNER FOR
-         var picId = response.photos.data[i].id;
-         var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
-         pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
-         albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h3 id="+picId+">"+boolean+"</figcaption></figure>";
+        if (typeof response.photos.data[i].likes === "undefined")  likesCounter = 0;
+        else {
+          likesCounter = response.photos.data[i].likes.data.length;
+          boolean = didYouLike(response.photos.data[i].likes.data);
+        }
+
+        for (var j = 0; j < temp.length; j++) {
+          if (temp[j].height === 320) thumbSource = temp[j].source;
+        } // END INNER FOR
+        var picId = response.photos.data[i].id;
+        var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
+        pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
+        tempDick = "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>"+ desc  +"</h5>"+likesCounter +" Likes";
+        if (boolean === "")   tempDick += "<h5 onclick='likeThis("+picId+")'>Like this picture</h5>";
+        tempDick += "<h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
+        albumArea.innerHTML += tempDick;
+        // albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
       } // END OUTER FOR
 
-  }
-);
+    }
+  );
 }
 
-$(document).on('click', '#816520808379387', function() { console.log("BNE");   temp=816520808379387; createAlbum(temp);});
-$(document).on('click', '#816504545047680', function() { console.log("GC");    temp=816504545047680; createAlbum(temp);});
-$(document).on('click', '#816503235047811', function() { console.log("Noosa"); temp=816503235047811; createAlbum(temp);});
-$(document).on('click', '#816508098380658', function() { console.log("Heron"); temp=816508098380658; createAlbum(temp);});
+$(document).on('click', '#816520808379387', function() { console.log("BNE");   temp=816520808379387; createPhotoAlbum(temp);});
+$(document).on('click', '#816504545047680', function() { console.log("GC");    temp=816504545047680; createPhotoAlbum(temp);});
+$(document).on('click', '#816503235047811', function() { console.log("Noosa"); temp=816503235047811; createPhotoAlbum(temp);});
+$(document).on('click', '#816508098380658', function() { console.log("Heron"); temp=816508098380658; createPhotoAlbum(temp);});
 
 
 function getComments(){
@@ -239,7 +216,8 @@ function didYouLike(likeArray)
 {
   // console.log(likeArray);
   for (var i = 0; i < likeArray.length; i++) {
-    if (userLoggedIn === likeArray[i].id) return true;
+    if (userLoggedIn === likeArray[i].id) return "You like this";
+    else return "";
   }
 
 }
