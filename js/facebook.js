@@ -108,9 +108,8 @@ function getIdDesc(){
         if (n != -1){                                      //Check for Australia
           likes = response.albums.data[i].likes.data;
           numberOfLikes = parseInt(likes.length);          //Save likes
-          console.log("DETTE ALBUMET HAR: "+numberOfLikes);
           url = response.albums.data[i].id;
-          console.log(url);
+          // console.log(url);
           getThumbSource(url, description, numberOfLikes); // call method to create URL, Desc and Likes
         } //End IF
        } //END FOR
@@ -159,9 +158,13 @@ function createAlbum(albumId){
       var temp = response.photos.data[i].images;
        bigPic = temp[0].source;
        desc = response.photos.data[i].name;
-       console.log(picId);
-       if (typeof response.photos.data[i].likes === "undefined"  ) {likesCounter = 0;  }
-       else {likesCounter = response.photos.data[i].likes.data.length; }
+       if (typeof response.photos.data[i].likes === "undefined"){
+         likesCounter = 0;
+       }
+       else {
+         likesCounter = response.photos.data[i].likes.data.length;
+         boolean = didYouLike(response.photos.data[i].likes.data);
+       }
        if (!desc) desc = "No title ";
        for (var j = 0; j < temp.length; j++) {
          if (temp[j].height === 320) thumbSource = temp[j].source;
@@ -187,7 +190,7 @@ function createAlbum(albumId){
          var picId = response.photos.data[i].id;
          var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
          pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
-         albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h3 id="+picId+"></figcaption></figure>";
+         albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h3 id="+picId+">"+boolean+"</figcaption></figure>";
       } // END OUTER FOR
 
   }
@@ -227,7 +230,16 @@ function likeThis(pictureId){
   console.log("THIS IS PIC ID: " +pictureId);
   FB.api( '/'+pictureId+'/likes', 'POST', {},
     function(response) {
-        if (response.success === true)  document.getElementById(pictureId).innerHTML = "BITCH YOU JUST LIKED THIS";
+        if (response.success === true)  document.getElementById(pictureId).innerHTML = "Liked";
     }
   );
+}
+
+function didYouLike(likeArray)
+{
+  // console.log(likeArray);
+  for (var i = 0; i < likeArray.length; i++) {
+    if (userLoggedIn === likeArray[i].id) return true;
+  }
+
 }
