@@ -7,7 +7,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <script type="text/javascript" src="js/facebook.js"></script>
     <link rel="stylesheet" type="text/css" href="style/style.css">
-    <script type="text/javascript" src="js/script.js"></script>
   </head>
   <body>
     <nav class="content">
@@ -32,7 +31,7 @@
     </div>
     <div id="faceLogin">
       <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+        <fb:login-button scope="public_profile,email,publish_actions" onlogin="checkLoginState();">
         </fb:login-button>
         <!-- <button id="logOutFacebook">Log Out</button> -->
     </div>
