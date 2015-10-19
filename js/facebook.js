@@ -146,10 +146,10 @@ function createPhotoAlbum(albumId){
     '/' + albumId,'GET', {"fields":"photos{images, name, likes}"},
     function(response) {
       for (var i = 0; i < response.photos.data.length; i++) {
-         var temp = response.photos.data[i].images;
+        var temp = response.photos.data[i].images;
         bigPic = temp[0].source;
         desc = response.photos.data[i].name;
-        if (!desc) desc = "No title ";
+        if (!desc) desc = "";
 
         if (typeof response.photos.data[i].likes === "undefined")  likesCounter = 0;
         else {
@@ -163,9 +163,11 @@ function createPhotoAlbum(albumId){
         var picId = response.photos.data[i].id;
         var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
         pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
-        tempDick = "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>"+ desc  +"</h5>"+likesCounter +" Likes";
-        if (boolean === "")   tempDick += "<h5 onclick='likeThis("+picId+")'>Like this picture</h5>";
-        tempDick += "<h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
+        tempDick = "<figure class='photoAlbum'>" + pic +"<figcaption><h3 class='photoDesc'>"+ desc  +"</h3><h3>"+likesCounter +" Likes</h3>";
+
+        if (boolean !== "")   tempDick += "<h4 onclick='likeThis("+picId+")'>Like this picture</h4>";
+        else tempDick += "<h4 onclick='dislikeThis("+picId+")'>Unlike</h4>";
+         tempDick += /*"<h4 id="+picId+">"+boolean+"</h4>*/"</figcaption></figure>";
         albumArea.innerHTML += tempDick;
         // albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
       } // END OUTER FOR
@@ -174,10 +176,10 @@ function createPhotoAlbum(albumId){
   );
 }
 
-$(document).on('click', '#816520808379387', function() { console.log("BNE");   temp=816520808379387; createPhotoAlbum(temp);});
-$(document).on('click', '#816504545047680', function() { console.log("GC");    temp=816504545047680; createPhotoAlbum(temp);});
-$(document).on('click', '#816503235047811', function() { console.log("Noosa"); temp=816503235047811; createPhotoAlbum(temp);});
-$(document).on('click', '#816508098380658', function() { console.log("Heron"); temp=816508098380658; createPhotoAlbum(temp);});
+$(document).on('click', '#816520808379387', function() { temp=816520808379387; createPhotoAlbum(temp);});
+$(document).on('click', '#816504545047680', function() { temp=816504545047680; createPhotoAlbum(temp);});
+$(document).on('click', '#816503235047811', function() { temp=816503235047811; createPhotoAlbum(temp);});
+$(document).on('click', '#816508098380658', function() { temp=816508098380658; createPhotoAlbum(temp);});
 
 
 function getComments(){
@@ -208,16 +210,27 @@ function likeThis(pictureId){
   FB.api( '/'+pictureId+'/likes', 'POST', {},
     function(response) {
         if (response.success === true)  document.getElementById(pictureId).innerHTML = "Liked";
+
     }
   );
+}
+
+function dislikeThis(pictureId){
+  FB.api( '/'+pictureId+'/likes', 'DELETE', {},
+    function(response) {
+        if (response.success === true)  return "Disliked";
+
+    }
+  );
+
 }
 
 function didYouLike(likeArray)
 {
   // console.log(likeArray);
   for (var i = 0; i < likeArray.length; i++) {
-    if (userLoggedIn === likeArray[i].id) return "You like this";
-    else return "";
+    if (userLoggedIn === likeArray[i].id) return "";
   }
+  return false;
 
 }
