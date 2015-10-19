@@ -128,11 +128,8 @@ function createThumbs(id, desc, likes){                           /*GET AUSTRALI
           pic = response.source;
           albumArea.innerHTML+=
           "<figure class='facebookFigures' id='"+id+"'><img class='thumbPictures' src='"+pic+
-          "'><figcaption id=''><h4 id='albumDesc'>" + desc + "</h5>" + likes +
+          "'><figcaption id=''><h4 class='albumDesc'>" + desc + "</h4>" + likes +
           " Likes</figcaption></figure>";
-          // thumbNails = {  source:pic, description:desc, numberOfLikes:likes  };
-          // generateHTML(thumbNails);
-
     }
   );
 }
