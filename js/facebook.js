@@ -109,6 +109,7 @@ function getIdDescforThumbs(){
           likes = response.albums.data[i].likes.data;
           numberOfLikes = parseInt(likes.length);          //Save likes
           url = response.albums.data[i].id;
+          description = description.substring(0, description.indexOf(',')); // I only want the name. Looks cleaner.
           // console.log(url);
           createThumbs(url, description, numberOfLikes); // call method to create URL, Desc and Likes
         } //End IF
@@ -124,12 +125,11 @@ function createThumbs(id, desc, likes){                           /*GET AUSTRALI
     getCoverSource = response.cover_photo.id;
     FB.api( '/'+getCoverSource, 'GET', {"fields":"source, id, link, album"},
       function (response) {
-          // albumId = response.album.id;
           pic = response.source;
           albumArea.innerHTML+=
           "<figure class='facebookFigures' id='"+id+"' onclick='createPhotoAlbum("+id+")'><img class='thumbPictures' src='"+pic+
-          "'><figcaption id=''><h4 id='albumDesc'>" + desc + "</h5>" + likes +
-          " Likes</figcaption></figure>";
+          "'><figcaption><p class='albumDesc'>" + desc + "</p><p class='likeAlbum'>" + likes +
+          " People like this album</p></figcaption></figure>";
     }
   );
 }
@@ -146,7 +146,7 @@ function createPhotoAlbum(albumId){
         var temp = response.photos.data[i].images;
         bigPic = temp[0].source;
         desc = response.photos.data[i].name;
-        if (!desc) desc = "";
+        if (!desc) desc = "No title";
         if (typeof response.photos.data[i].likes === "undefined")  likesCounter = 0;
         else {
           likesCounter = response.photos.data[i].likes.data.length;
@@ -159,23 +159,21 @@ function createPhotoAlbum(albumId){
         var picId = response.photos.data[i].id;
         var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
         pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
-        tempDick = "<figure class='photoAlbum'>" + pic +"<figcaption><h3 class='photoDesc'>"+ desc  +"</h3><h4>"+likesCounter +" Likes </h4> ";
+        tempDick = "<figure>" + pic +"<figcaption><h4 class='photoDesc'>"+ desc  +"</h4>";
         tempDick += "<div id='"+picId+"'";
-        if (boolean !== "")   tempDick += "onclick='likeThis("+picId+")'><h5>Like this picture</div></h5>";
-        else                  tempDick += "onclick='dislikeThis("+picId+")'><h5>Unlike</div></h5>";
-         tempDick += /*"<h4 id="+picId+">"+boolean+"</h4>*/"</figcaption></figure>";
+        if (!boolean){
+          tempDick += "onclick='likeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Like this picture</div>";
+        }
+        else if(boolean){
+          tempDick += "onclick='dislikeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Unlike this picture</div>";
+        }
+         tempDick += /*"<h4 id="+picId+">"+boolean+"</h4>*/"</h4></figcaption></figure>";
          albumArea.innerHTML += tempDick;
         // albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
       } // END OUTER FOR
     }
   );
 }
-
-// $(document).on('click', '#816520808379387', function() { var temp=816520808379387; createPhotoAlbum(temp);});
-// $(document).on('click', '#816504545047680', function() { var temp=816504545047680; createPhotoAlbum(temp);});
-// $(document).on('click', '#816503235047811', function() { var temp=816503235047811; createPhotoAlbum(temp);});
-// $(document).on('click', '#816508098380658', function() { var temp=816508098380658; createPhotoAlbum(temp);});
-
 
 function getComments(){
   FB.api('/'+appID, 'GET', {"fields":"feed{likes, message}"},
@@ -234,7 +232,7 @@ function didYouLike(likeArray)
 {
   // console.log(likeArray);
   for (var i = 0; i < likeArray.length; i++) {
-    if (userLoggedIn === likeArray[i].id) return "";
+    if (userLoggedIn === likeArray[i].id) return true;
   }
   return false;
 
