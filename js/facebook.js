@@ -127,12 +127,9 @@ function createThumbs(id, desc, likes){                           /*GET AUSTRALI
           // albumId = response.album.id;
           pic = response.source;
           albumArea.innerHTML+=
-          "<figure class='facebookFigures' id='"+id+"'><img class='thumbPictures' src='"+pic+
+          "<figure class='facebookFigures' id='"+id+"' onclick='createPhotoAlbum("+id+")'><img class='thumbPictures' src='"+pic+
           "'><figcaption id=''><h4 id='albumDesc'>" + desc + "</h5>" + likes +
           " Likes</figcaption></figure>";
-          // thumbNails = {  source:pic, description:desc, numberOfLikes:likes  };
-          // generateHTML(thumbNails);
-
     }
   );
 }
@@ -150,7 +147,6 @@ function createPhotoAlbum(albumId){
         bigPic = temp[0].source;
         desc = response.photos.data[i].name;
         if (!desc) desc = "";
-
         if (typeof response.photos.data[i].likes === "undefined")  likesCounter = 0;
         else {
           likesCounter = response.photos.data[i].likes.data.length;
@@ -168,17 +164,17 @@ function createPhotoAlbum(albumId){
         if (boolean !== "")   tempDick += "onclick='likeThis("+picId+")'><h5>Like this picture</div></h5>";
         else                  tempDick += "onclick='dislikeThis("+picId+")'><h5>Unlike</div></h5>";
          tempDick += /*"<h4 id="+picId+">"+boolean+"</h4>*/"</figcaption></figure>";
-        albumArea.innerHTML += tempDick;
+         albumArea.innerHTML += tempDick;
         // albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
       } // END OUTER FOR
     }
   );
 }
 
-$(document).on('click', '#816520808379387', function() { temp=816520808379387; createPhotoAlbum(temp);});
-$(document).on('click', '#816504545047680', function() { temp=816504545047680; createPhotoAlbum(temp);});
-$(document).on('click', '#816503235047811', function() { temp=816503235047811; createPhotoAlbum(temp);});
-$(document).on('click', '#816508098380658', function() { temp=816508098380658; createPhotoAlbum(temp);});
+// $(document).on('click', '#816520808379387', function() { var temp=816520808379387; createPhotoAlbum(temp);});
+// $(document).on('click', '#816504545047680', function() { var temp=816504545047680; createPhotoAlbum(temp);});
+// $(document).on('click', '#816503235047811', function() { var temp=816503235047811; createPhotoAlbum(temp);});
+// $(document).on('click', '#816508098380658', function() { var temp=816508098380658; createPhotoAlbum(temp);});
 
 
 function getComments(){
@@ -209,7 +205,7 @@ function likeThis(pictureId){
   FB.api( '/'+pictureId+'/likes', 'POST', {},
     function(response) {
         if (response.success === true)  document.getElementById(pictureId).innerHTML = "Liked";
-
+        updateLikes(pictureId);
     }
   );
 }
@@ -218,12 +214,20 @@ function dislikeThis(pictureId){
   FB.api( '/'+pictureId+'/likes', 'DELETE', {},
     function(response) {
       console.log("THIS IS PICID DISLIKE" + pictureId);
-
         if (response.success === true)  return "Disliked";
+        updateLikes(pictureId);
 
     }
   );
+}
 
+function updateLikes(pictureId){
+  FB.api('/'+pictureId, 'GET', {"fields":"album"},
+  function(response) {
+    albumID = response.album.id;
+    createPhotoAlbum(albumID);
+  }
+);
 }
 
 function didYouLike(likeArray)
