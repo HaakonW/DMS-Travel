@@ -128,8 +128,11 @@ function createThumbs(id, desc, likes){                           /*GET AUSTRALI
           pic = response.source;
           albumArea.innerHTML+=
           "<figure class='facebookFigures' id='"+id+"'><img class='thumbPictures' src='"+pic+
-          "'><figcaption id=''><h4 class='albumDesc'>" + desc + "</h4>" + likes +
+          "'><figcaption id=''><h4 id='albumDesc'>" + desc + "</h5>" + likes +
           " Likes</figcaption></figure>";
+          // thumbNails = {  source:pic, description:desc, numberOfLikes:likes  };
+          // generateHTML(thumbNails);
+
     }
   );
 }
@@ -160,15 +163,14 @@ function createPhotoAlbum(albumId){
         var picId = response.photos.data[i].id;
         var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
         pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
-        tempDick = "<figure class='photoAlbum'>" + pic +"<figcaption><h3 class='photoDesc'>"+ desc  +"</h3><h3>"+likesCounter +" Likes</h3>";
-
-        if (boolean !== "")   tempDick += "<h4 onclick='likeThis("+picId+")'>Like this picture</h4>";
-        else tempDick += "<h4 onclick='dislikeThis("+picId+")'>Unlike</h4>";
+        tempDick = "<figure class='photoAlbum'>" + pic +"<figcaption><h3 class='photoDesc'>"+ desc  +"</h3><h4>"+likesCounter +" Likes </h4> ";
+        tempDick += "<div id='"+picId+"'";
+        if (boolean !== "")   tempDick += "onclick='likeThis("+picId+")'><h5>Like this picture</div></h5>";
+        else                  tempDick += "onclick='dislikeThis("+picId+")'><h5>Unlike</div></h5>";
          tempDick += /*"<h4 id="+picId+">"+boolean+"</h4>*/"</figcaption></figure>";
         albumArea.innerHTML += tempDick;
         // albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
       } // END OUTER FOR
-
     }
   );
 }
@@ -215,6 +217,8 @@ function likeThis(pictureId){
 function dislikeThis(pictureId){
   FB.api( '/'+pictureId+'/likes', 'DELETE', {},
     function(response) {
+      console.log("THIS IS PICID DISLIKE" + pictureId);
+
         if (response.success === true)  return "Disliked";
 
     }
