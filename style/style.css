@@ -58,7 +58,12 @@ nav a:active {text-decoration: underline;}
   color: #61AFEF;
 }
 
-#welcomeHeader{
+.welcomeHeader{
+text-align: center;
+font-size: 30px;
+font-variant: small-caps;
+color: white;
+text-shadow: 2px 2px #000000;
 
 }
 
@@ -66,19 +71,17 @@ nav a:active {text-decoration: underline;}
   border: solid green;
 }
 
-#reviewArea{
+#customerReview{
+  margin-top: 30%;
   border: solid yellow;
   margin-left: 4%;
-  float: right;
-  width: 10%;
-  height: 10%;
-  display: none;
 }
 
-
 #albumArea{
+  border: solid red;
   margin-top: 5%;
   margin-bottom: 5%;
+  width: 100%;
   /*width: 75%;*/
 }
 
@@ -93,18 +96,21 @@ figure{
 
 .thumbPictures, .albumPictures{
   /*border: solid blue;*/
-  height: 220px;
-  width: 250px;
+  height: 300px;
+  width: 330px;
   border-radius: 5px;
 }
 
 .likeAlbum{
   text-align: center;
+  font-variant: small-caps;
+
 }
 
 .albumDesc, .photoDesc{
   text-align: center;
-  font-size: 20px;
+  font-size: 25px;
+  font-variant: small-caps;
 }
 
 .photoDesc{
@@ -113,6 +119,8 @@ figure{
 
 .likeClicker{
   color: #197FD4;
+  font-variant: small-caps;
+  text-align: center;
 }
 
 /*#plane{
@@ -169,14 +177,15 @@ footer{
   background: -o-linear-gradient(#414141, #262626);
   background: -moz-linear-gradient(#414141, #262626);
   background: linear-gradient(#414141, #262626);
-  bottom: 0px;
+  /*bottom: 0px;
   left: 0px;
-  right: 0px;
+  right: 0px;*/
+  width: 100%;
   padding-left: 15px;
   padding-top: 10px;
   padding-bottom: 10px;
   height: 40px;
   font-size: 12px;
-  position: fixed;
+  /*position: fixed;*/
   color: white;
 }
