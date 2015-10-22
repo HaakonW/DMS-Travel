@@ -9,56 +9,50 @@
     <link rel="stylesheet" type="text/css" href="style/style.css">
   </head>
   <body>
-    <nav class="content">
 
+    <nav class="content">
      <div id="navLinks">
        <a class="navLinks" href="index.html">Home</a>
        <a class="navLinks" href="doc.html">Documentation</a>
        <a class="navLinks" href="about.html">About</a>
-       <a class="navLinks" id="logo" href="index.html" >DMS TRAVEL</a>
-
+       <a class="navLinks" id="logo" href="index.html">DMS TRAVEL</a>
      </div>
-
+     <h1 id="firstWelcome">Welcome To Dms Travel </h1>
     </nav>
 
     <div id="splashScreen">
       <div id="splashContent">
-        <div id="welcomeLogo">
-          <p>DMS</p>
-          <p>TRAVEL</p>
         </div>
-        <p id="welcomeText">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus omnis voluptatem ipsa tempore, maiores veritatis, esse, laborum tempora nisi facilis eum? Modi quos ipsam dolore ad aliquid libero, quidem ullam.</p>
     </div>
+
     <div id="faceLogin">
       <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+        <div id="status"></div>
+
         <fb:login-button scope="public_profile,email,publish_actions" onlogin="checkLoginState();">
         </fb:login-button>
-        <!-- <button id="logOutFacebook">Log Out</button> -->
     </div>
    </div><!--end FacebookLogin -->
   </div> <!--End splashScreen-->
 
-<aside>
+<div>
+  <h3 class="smallCaps">About Us:</h3>
+  <div id="descriptionArea"></div>
 
-  </aside>
-<div class="welcomeHeader">
- <h1 >Welcome To Dms Travel </h1>
-<h3>Check out some of our great offers to Australia!</h3>
 </div>
 
-  <div id="albumArea"> </div>
+  <div>
+    <h3 class="smallCaps">Customer Statements:</h3>
+    <div class="smallCaps" id="reviewText"></div>
+  </div>
 
-<div id="customerReview">
-  <h3 class="welcomeHeader">What Our Customers Think about Dms Travel:</h3>
-    <p class="welcomeHeader"></p>
-</div>
+  <div id="albumArea"></div>
 
-   <footer>
-     <div id="status"></div>
 
+   <!-- <footer>
     <span id="footerText">
     </span>
-  </footer>
+  </footer> -->
   <script src="lightbox2-master/dist/js/lightbox.js"></script>
 </body>
 </html>

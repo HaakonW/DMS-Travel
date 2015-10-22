@@ -5,6 +5,11 @@ function loadContent(){
   getIdDescforThumbs();
   getComments();
   $("#splashScreen").hide();
+  $("#firstWelcome").hide();
+  $("#faceLogin").hide();
+
+
+
   $("#navLinks").show();
   document.getElementById('status').innerHTML = "";
 }
@@ -36,7 +41,7 @@ function statusChangeCallback(response) {
     // The person is not logged into Facebook, so we're not sure if
     // they are logged into this app or not.
     document.getElementById('status').innerHTML = 'Please log ' +
-    'into Facebook to get access to DMS Travel.';
+    'into Facebook to get access to Dms Travel.';
     // $("#albumArea").hide();
     // $("#navLinks").hide();
   }
@@ -59,17 +64,7 @@ window.fbAsyncInit = function() {
     version    : 'v2.2' // use version 2.2
   });
 
-  // Now that we've initialized the JavaScript SDK, we call
-  // FB.getStatus().  This function gets the state of the
-  // person visiting this page and can return one of three states to
-  // the callback you provide.  They can be:
-  //
-  // 1. Logged into your app ('connected')
-  // 2. Logged into Facebook, but not your app ('not_authorized')
-  // 3. Not logged into Facebook and can't tell if they are logged into
-  //    your app or not.
-  //
-  // These three cases are handled in the callback function.
+
 
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
@@ -100,7 +95,7 @@ function testAPI() {
 function getIdDescforThumbs(){
   FB.api('/'+appID,'GET', {"fields":"albums{cover_photo,location,likes},description"},
     function(response) {
-      footerText.innerHTML=response.description;
+      descriptionArea.innerHTML=response.description;
       for (var i = 0; i < response.albums.data.length; i++) {
         var description = response.albums.data[i].location;
         if(!description)continue;                          //Iterate to next if no location
@@ -110,7 +105,6 @@ function getIdDescforThumbs(){
           numberOfLikes = parseInt(likes.length);          //Save likes
           url = response.albums.data[i].id;
           description = description.substring(0, description.indexOf(',')); // I only want the name. Looks cleaner.
-          // console.log(url);
           createThumbs(url, description, numberOfLikes); // call method to create URL, Desc and Likes
         } //End IF
        } //END FOR
