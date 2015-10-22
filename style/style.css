@@ -30,15 +30,15 @@ nav{
   margin-top: -10px;
 }
 
-nav a:link { text-decoration: none; color: white;}
-nav a:visited {text-decoration: none; color: white;}
-nav a:hover { text-decoration: none; color: #61AFEF; cursor: pointer;}
-nav a:active {text-decoration: none;}
-
 #navLinks{
-  padding-top: 35px;
+  padding-top: 40px;
   display: none;
   font-size: 25px;
+}
+
+#navLinks:hover {
+  color: #61AFEF;
+  cursor: pointer;
 }
 
 .navLinks{
@@ -49,6 +49,8 @@ nav a:active {text-decoration: none;}
 #logo{
   float: right;
   color: #61AFEF;
+  font-size: 2em;
+  font-weight: bold;
 }
 /***************END NAV***************/
 /***************START SPLASHSCREEN***************/
@@ -138,12 +140,12 @@ figure{
   padding-right: 35px;
   padding-top: 35px;
   border-radius: 5px;
+  margin: 2%;
   box-shadow: 10px 10px 5px #888888;
   float: left;
 }
 
 figure:hover{
-  color:#197FD4;
   font-weight: bold;
 }
 
@@ -186,4 +188,62 @@ footer{
   font-size: 12px;
   /*position: fixed;*/
   color: white;
+}
+
+#plane{
+  width: 100px;
+  height: 50px;
+  position: fixed;
+  bottom: 45px;
+  z-index: 1;
+  animation: loadingPic 20s;
+  animation-delay: 2s;
+  animation-iteration-count: 14;
+}
+
+@keyframes loadingPic{
+0% {left:0%; bottom: 45px;}
+/*5% {left:15%; bottom: 45px;}
+10% {left:20%; bottom: 45px;}*/
+/*15% {left:30px;}
+20% {left:45px;}
+25% {left:67px;}
+30% {left:85px;}
+35% {left:100px;}
+40% {left:120px;}
+45% {left:170px;}
+50% {left:230px;}
+55% {left:300px;}
+60% {left:350px; bottom: 50px;}
+65% {left:450px; bottom: 65px;}
+70% {left:600px; bottom: 80px;}
+75% {left:750px; bottom: 100px;}
+80% {left:1000px; bottom: 130px;}
+85% {left:1200px; bottom: 170px;}
+90% {left:1400px; bottom: 210px;}
+95% {left:1600px; bottom: 300px;}*/
+100% {left: 130%; bottom: 60%}
+}
+
+
+/*@-webkit-keyframes loadingPic{
+0% {left:100px;}
+10% {left:200px;}
+20% {left:300px;}
+30% {left:400px;}
+40% {left:500px;}
+50% {left:600px;}
+60% {left:700px;}
+70% {left:800px;}
+80% {left:850px;}
+90% {left:900px;}
+100% {left: 1600px;}
+}*/
+
+#documentation{
+  display: none;
+}
+
+#about{
+  display: none;
 }

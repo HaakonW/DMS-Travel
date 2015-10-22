@@ -49,3 +49,17 @@ $(document).ready(function(){
 // controller.displayThumbsCallback = function(url, description, numberOfLikes){
 //   view.createThumbs(url, description, numberOfLikes);
 // };
+
+$("#aboutBTN").on("click", function(){
+  // $("#content").hide();
+  // $("#documentation").hide();
+  console.log("HEI");
+
+});
+
+$("#docBTN").on("click", function(){
+  // $("#content").hide();
+  // $("#about").hide();
+  console.log("HEO");
+
+});
