@@ -140,7 +140,7 @@ function createPhotoAlbum(albumId){
         var temp = response.photos.data[i].images;
         bigPic = temp[0].source;
         desc = response.photos.data[i].name;
-        if (!desc) desc = "No title";
+        if (!desc) desc = "No Title";
         if (typeof response.photos.data[i].likes === "undefined")  likesCounter = 0;
         else {
           likesCounter = response.photos.data[i].likes.data.length;
@@ -156,10 +156,10 @@ function createPhotoAlbum(albumId){
         tempDick = "<figure>" + pic +"<figcaption><h4 class='photoDesc'>"+ desc  +"</h4>";
         tempDick += "<div id='"+picId+"'";
         if (!boolean){
-          tempDick += "onclick='likeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Like this picture</div>";
+          tempDick += "onclick='likeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Like This Picture</div>";
         }
         else if(boolean){
-          tempDick += "onclick='dislikeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Unlike this picture</div>";
+          tempDick += "onclick='dislikeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Unlike This Picture</div>";
         }
          tempDick += /*"<h4 id="+picId+">"+boolean+"</h4>*/"</h4></figcaption></figure>";
          albumArea.innerHTML += tempDick;
