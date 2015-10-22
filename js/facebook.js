@@ -7,9 +7,6 @@ function loadContent(){
   $("#splashScreen").hide();
   $("#firstWelcome").hide();
   $("#faceLogin").hide();
-
-
-
   $("#navLinks").show();
   document.getElementById('status').innerHTML = "";
 }
@@ -64,8 +61,6 @@ window.fbAsyncInit = function() {
     version    : 'v2.2' // use version 2.2
   });
 
-
-
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
@@ -118,12 +113,12 @@ function createThumbs(id, desc, likes){                           /*GET AUSTRALI
   function(response) {
     getCoverSource = response.cover_photo.id;
     FB.api( '/'+getCoverSource, 'GET', {"fields":"source, id, link, album"},
-      function (response) {
-          pic = response.source;
-          albumArea.innerHTML+=
-          "<figure class='facebookFigures' id='"+id+"' onclick='createPhotoAlbum("+id+")'><img class='thumbPictures' src='"+pic+
-          "'><figcaption><p class='albumDesc'>" + desc + "</p><p class='likeAlbum'>" + likes +
-          " People like this album</p></figcaption></figure>";
+    function (response) {
+      pic = response.source;
+      albumArea.innerHTML+=
+      "<figure class='facebookFigures' id='"+id+"' onclick='createPhotoAlbum("+id+")'><img class='thumbPictures' src='"+pic+
+      "'><figcaption><p class='albumDesc'>" + desc + "</p><p class='likeAlbum'>" + likes +
+      " People like this album</p></figcaption></figure>";
     }
   );
 }
@@ -146,7 +141,6 @@ function createPhotoAlbum(albumId){
           likesCounter = response.photos.data[i].likes.data.length;
           boolean = didYouLike(response.photos.data[i].likes.data);
         }
-
         for (var j = 0; j < temp.length; j++) {
           if (temp[j].height === 320) thumbSource = temp[j].source;
         } // END INNER FOR
@@ -155,14 +149,10 @@ function createPhotoAlbum(albumId){
         pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
         tempDick = "<figure>" + pic +"<figcaption><h4 class='photoDesc'>"+ desc  +"</h4>";
         tempDick += "<div id='"+picId+"'";
-        if (!boolean){
-          tempDick += "onclick='likeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Like This Picture</div>";
-        }
-        else if(boolean){
-          tempDick += "onclick='dislikeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Unlike This Picture</div>";
-        }
-         tempDick += /*"<h4 id="+picId+">"+boolean+"</h4>*/"</h4></figcaption></figure>";
-         albumArea.innerHTML += tempDick;
+        if (!boolean){     tempDick += "onclick='likeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Like This Picture</div>";  }
+        else if(boolean){  tempDick += "onclick='dislikeThis("+picId+")'><h4 class='likeClicker'>"+likesCounter +" Likes - Unlike This Picture</div>"; }
+        tempDick += "</h4></figcaption></figure>";
+        albumArea.innerHTML += tempDick;
         // albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
       } // END OUTER FOR
     }
@@ -208,7 +198,6 @@ function dislikeThis(pictureId){
       console.log("THIS IS PICID DISLIKE" + pictureId);
         if (response.success === true)  return "Disliked";
         updateLikes(pictureId);
-
     }
   );
 }
@@ -224,10 +213,8 @@ function updateLikes(pictureId){
 
 function didYouLike(likeArray)
 {
-  // console.log(likeArray);
   for (var i = 0; i < likeArray.length; i++) {
     if (userLoggedIn === likeArray[i].id) return true;
   }
   return false;
-
 }
