@@ -1,3 +1,7 @@
+html{
+  height: 100%;
+}
+
 body{
   background: -webkit-linear-gradient(#61AFEF, #197FD4); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#61AFEF, #197FD4); /* For Opera 11.1 to 12.0 */
@@ -30,15 +34,14 @@ nav{
   margin-top: -10px;
 }
 
-#navLinks{
-  padding-top: 40px;
-  display: none;
-  font-size: 25px;
-}
-
-#navLinks:hover {
+nav span:hover{
   color: #61AFEF;
   cursor: pointer;
+}
+
+#navLinks{
+  padding-top: 40px;
+  font-size: 25px;
 }
 
 .navLinks{
@@ -46,11 +49,12 @@ nav{
   padding-left: 3%;
 }
 
+
 #logo{
   float: right;
-  color: #61AFEF;
   font-size: 2em;
   font-weight: bold;
+  display: none;
 }
 /***************END NAV***************/
 /***************START SPLASHSCREEN***************/
@@ -198,7 +202,7 @@ footer{
   z-index: 1;
   animation: loadingPic 20s;
   animation-delay: 2s;
-  animation-iteration-count: 14;
+  animation-iteration-count: 1;
 }
 
 @keyframes loadingPic{
@@ -240,10 +244,23 @@ footer{
 100% {left: 1600px;}
 }*/
 
-#documentation{
-  display: none;
+#docText{
+  margin-top: 10%;
+  margin-left: 5%;
+  color: white;
+  width: 60%;
 }
 
-#about{
-  display: none;
+#docFont{
+  font-size: 24px;
+  text-align: left;
+
+}
+
+#aboutText{
+  margin-top: 10%;
+}
+#aboutText a{
+  text-decoration: none;
+  color: white;
 }

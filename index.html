@@ -1,73 +1,66 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>DMS Travel</title>
-    <link href="lightbox2-master/dist/css/lightbox.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script type="text/javascript" src="js/controller.js"></script>
-    <script type="text/javascript" src="js/model-facebook.js"></script>
-    <script type="text/javascript" src="js/view.js"></script>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
-  </head>
-  <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DMS Travel</title>
+  <link href="lightbox2-master/dist/css/lightbox.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script type="text/javascript" src="js/controller.js"></script>
+  <script type="text/javascript" src="js/facebook.js"></script>
+  <script type="text/javascript" src="js/view.js"></script>
+  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <link rel="icon" type="image/png" href="pics/plane.png">
+</head>
+<body>
 
-    <nav class="content">
-     <div id="navLinks">
-       <a class="smallCaps navLinks" href="index.html">Home</a>
-       <a class="smallCaps navLinks" href="doc.html">Documentation</a>
-       <a class="smallCaps navLinks" href="about.html">About</a>
-       <a class="smallCaps navLinks" id="logo" href="index.html">Dms Travel</a>
-     </div>
-     <h1 id="firstWelcome">Welcome To Dms Travel </h1>
-    </nav>
-
-    <div id="splashScreen">
-      <div id="splashContent">
-        </div>
-        <img id="plane" src="pics/plane.png" alt="">
+  <nav class="content">
+    <div id="navLinks">
+      <span class="smallCaps navLinks" id="homeBTN"  >Home</span>
+      <span class="smallCaps navLinks" id="docBTN"   >Documentation</span>
+      <span class="smallCaps navLinks" id="aboutBTN" >About</span>
+      <span class="smallCaps navLinks" id="logo"     >Dms Travel</span>
     </div>
+    <h1 id="firstWelcome">Welcome To Dms Travel </h1>
+  </nav>
 
-
-    <div id="faceLogin">
-      <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
-        <div id="status"></div>
-
-        <fb:login-button scope="public_profile,email,publish_actions" onlogin="checkLoginState();">
-        </fb:login-button>
+  <div id="splashScreen">
+    <div id="splashContent">
     </div>
-   </div><!--end FacebookLogin -->
-  </div> <!--End splashScreen-->
-<div id="content">
-    <div id="albumArea"></div>
-
-<div id="secondRow">
-  <div id="aboutUsArea">
-    <h3 class="smallCaps">About Us:</h3>
-    <div id="descriptionArea"></div>
+    <img id="plane" src="pics/plane.png" alt="">
   </div>
+  <div id="responseArea"></div>
+
+  <div id="faceLogin">
+    <div class="fb-like" data-share="true" data-width="450" data-show-faces="true">
+      <div id="status"></div>
+
+      <fb:login-button scope="public_profile,email,publish_actions" onlogin="controller.checkLoginState();">
+    </fb:login-button>
+  </div>
+</div><!--end FacebookLogin -->
+</div> <!--End splashScreen-->
+
+<div id="content">
+  <div id="albumArea"></div>
+  
+  <div id="secondRow">
+    <div id="aboutUsArea">
+      <h3 class="smallCaps">About Us:</h3>
+      <div id="descriptionArea"></div>
+    </div>
 
     <div id="reviewArea">
       <h3 class="smallCaps">Customer Statements:</h3>
       <div class="smallCaps" id="reviewText"></div>
     </div>
-</div>
+  </div>
 
 </div> <!--END CONTENT AREA-->
-<div id="about">
-<h1>ABOUT</h1>
-</div>
 
-<div id="documentation">
-  <h1>DOCUMENTATION</h1>
-
-</div>
-
-
-   <!-- <footer>
-    <span id="footerText">
-    </span>
-  </footer> -->
-  <script src="lightbox2-master/dist/js/lightbox.js"></script>
+<!-- <footer>
+<span id="footerText">
+</span>
+</footer> -->
+<script src="lightbox2-master/dist/js/lightbox.js"></script>
 </body>
 </html>

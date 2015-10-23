@@ -1,6 +1,3 @@
-
-
-
 view.createThumbs= function(id, desc, likes){                           /*GET AUSTRALIA*/
   var pic;
   FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
@@ -54,4 +51,32 @@ view.createPhotoAlbum = function (albumId){
 
 view.createReview = function(text){
   document.getElementById('reviewText').innerHTML += "<br>"+ message + "<br>";
+};
+
+view.showDoc = function(){
+  firstWelcome.innerHTML = "Documentation";
+  var html = "<div id='docText'>";
+  html += "<p class='smallCaps' id='docFont'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at, voluptate officiis, rem, quisquam perferendis quas ipsam illum mollitia odio deleniti, et earum delectus sint voluptates sequi fugit amet soluta.";
+  html += "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at, voluptate officiis, rem, quisquam perferendis quas ipsam illum mollitia odio deleniti, et earum delectus sint voluptates sequi fugit amet soluta.</p>";
+  html += "<p class='smallCaps' id='docFont'>Lorem ipsum dolor s'it amet, consectetur adipisicing elit. Expedita at, voluptate officiis, rem, quisquam perferendis quas ipsam illum mollitia odio deleniti, et earum delectus sint voluptates sequi fugit amet soluta.";
+  html += "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at, voluptate officiis, rem, quisquam perferendis quas ipsam illum mollitia odio deleniti, et earum delectus sint voluptates sequi fugit amet soluta.</p>";
+  html += "</div>";
+  responseArea.innerHTML = html;
+
+};
+
+view.showAbout = function(){
+  firstWelcome.innerHTML = "About";
+  var html = "<div id='aboutText'>";
+  html+= "<h3 class='smallCaps'>Made by: Haakon Winther - Spring 2015</h3>";
+  html+="<h4 class='smallCaps'><a href=''>HaakonWinther@gmail.com</a></h4>";
+  html+= "<h3 class='smallCaps'>Student number: s5030763</h3>";
+  html+="</div>";
+  responseArea.innerHTML = html;
+};
+
+view.showSplash = function(){
+  firstWelcome.innerHTML = "Welcome To Dms Travel";
+  responseArea.innerHTML = "";
+
 };

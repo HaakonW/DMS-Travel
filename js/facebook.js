@@ -1,7 +1,7 @@
 facebook.appID = 815157038515764;
 facebook.displayThumbsCallback;
 
-function loadContent(){
+facebook.loadContent = function(){
   facebook.getIdDescforThumbs(controller.displayThumbsCallback);
   // facebook.getComments();
   $("#splashScreen").hide();
@@ -9,7 +9,7 @@ function loadContent(){
   $("#faceLogin").hide();
   $("#navLinks").show();
   document.getElementById('status').innerHTML = "";
-}
+};
 
 facebook.getIdDescforThumbs = function(displayThumbsCallback){
   facebook.displayThumbsCallback = displayThumbsCallback;

@@ -14,25 +14,25 @@ $(document).ready(function(){
   }(document, 'script', 'facebook-jssdk'));
 
   // This is called with the results from from FB.getLoginStatus().
-  function statusChangeCallback(response) {
+  controller.statusChangeCallback = function(response) {
     if (response.status === 'connected') {
       accessToken = response.authResponse.accessToken;
       userLoggedIn = response.id;
-      loadContent();
+      facebook.loadContent();
     } else if (response.status === 'not_authorized') { document.getElementById('status').innerHTML = 'Please log ' +  'into this app.';
-    } else { document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook to get access to Dms Travel.';
+  } else { document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook to get full access to Dms Travel.';
     }
-  }
+  };
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
-  function checkLoginState() {
+  controller.checkLoginState = function() {
     FB.getLoginStatus(function(response) {
-      statusChangeCallback(response);
+      controller.statusChangeCallback(response);
     });
-  }
+  };
   window.fbAsyncInit = function() { FB.init({appId: '1039844299401839', cookie: true, xfbml: true, version: 'v2.4'});
-    FB.getLoginStatus(function(response) { statusChangeCallback(response);});
+    FB.getLoginStatus(function(response) { controller.statusChangeCallback(response);});
   };
   // Load the SDK asynchronously
   (function(d, s, id) {
@@ -50,16 +50,17 @@ $(document).ready(function(){
 //   view.createThumbs(url, description, numberOfLikes);
 // };
 
-$("#aboutBTN").on("click", function(){
-  // $("#content").hide();
-  // $("#documentation").hide();
-  console.log("HEI");
+$(document).on("click", "#aboutBTN", function(){
+view.showAbout();
 
 });
 
-$("#docBTN").on("click", function(){
-  // $("#content").hide();
-  // $("#about").hide();
-  console.log("HEO");
+$(document).on("click", "#docBTN", function(){
+view.showDoc();
+
+});
+
+$(document).on("click", "#homeBTN", function(){
+view.showSplash();
 
 });
