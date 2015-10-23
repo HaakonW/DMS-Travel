@@ -1,13 +1,15 @@
 facebook.appID = 815157038515764;
 facebook.displayThumbsCallback;
 
-facebook.loadContent = function(){
+facebook.loadContent = function(user){
+
   facebook.getIdDescforThumbs(controller.displayThumbsCallback);
   // facebook.getComments();
   $("#splashScreen").hide();
   $("#firstWelcome").hide();
   $("#faceLogin").hide();
   $("#navLinks").show();
+  userLoggedIn = user;
   document.getElementById('status').innerHTML = "";
 };
 
@@ -16,6 +18,7 @@ facebook.getIdDescforThumbs = function(displayThumbsCallback){
   FB.api('/'+facebook.appID,'GET', {"fields":"albums{cover_photo,location,likes},description"},
     function(response) {
       descriptionArea.innerHTML=response.description;
+      albumArea.innerHTML= "";
       for (var i = 0; i < response.albums.data.length; i++) {
         var description = response.albums.data[i].location;
         if(!description)continue;                          //Iterate to next if no location
@@ -55,8 +58,7 @@ facebook.likeThis = function(pictureId){
   console.log("THIS IS PIC ID: " +pictureId);
   FB.api( '/'+pictureId+'/likes', 'POST', {},
     function(response) {
-        if (response.success === true)  document.getElementById(pictureId).innerHTML = "Liked";
-        facebook.updateLikes(pictureId);
+        if (response.success === true)  facebook.updateLikes(pictureId);
     }
   );
 };
@@ -64,9 +66,7 @@ facebook.likeThis = function(pictureId){
 facebook.dislikeThis = function(pictureId){
   FB.api( '/'+pictureId+'/likes', 'DELETE', {},
     function(response) {
-      console.log("THIS IS PICID DISLIKE" + pictureId);
-        if (response.success === true)  return "Disliked";
-        facebook.updateLikes(pictureId);
+        if (response.success === true) facebook.updateLikes(pictureId);
     }
   );
 };
@@ -82,7 +82,9 @@ facebook.updateLikes = function(pictureId){
 
 facebook.didYouLike = function (likeArray)
 {
+  console.log("user logged in: "+userLoggedIn);
   for (var i = 0; i < likeArray.length; i++) {
+    // console.log(likeArray[i].id);
     if (userLoggedIn === likeArray[i].id) return true;
   }
   return false;

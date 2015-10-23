@@ -2,7 +2,6 @@ var controller = {};
 var facebook = {};
 var view = {};
 
-
 $(document).ready(function(){
   window.fbAsyncInit = function() { FB.init({ appId: '1039844299401839', xfbml: true, version: 'v2.5'  });};
   (function(d, s, id){
@@ -17,8 +16,8 @@ $(document).ready(function(){
   controller.statusChangeCallback = function(response) {
     if (response.status === 'connected') {
       accessToken = response.authResponse.accessToken;
-      userLoggedIn = response.id;
-      facebook.loadContent();
+      userLoggedIn = response.authResponse.userID;
+      facebook.loadContent(userLoggedIn);
     } else if (response.status === 'not_authorized') { document.getElementById('status').innerHTML = 'Please log ' +  'into this app.';
   } else { document.getElementById('status').innerHTML = 'Please log ' + 'into Facebook to get full access to Dms Travel.';
     }
@@ -50,17 +49,6 @@ $(document).ready(function(){
 //   view.createThumbs(url, description, numberOfLikes);
 // };
 
-$(document).on("click", "#aboutBTN", function(){
-view.showAbout();
-
-});
-
-$(document).on("click", "#docBTN", function(){
-view.showDoc();
-
-});
-
-$(document).on("click", "#homeBTN", function(){
-view.showSplash();
-
-});
+$(document).on("click", "#aboutBTN", function(){view.showAbout();});
+$(document).on("click", "#docBTN", function(){view.showDoc();});
+$(document).on("click", "#homeBTN", function(){facebook.loadContent();});
