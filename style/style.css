@@ -99,35 +99,33 @@ nav span:hover{
 /***************END SPLASHSCREEN***************/
 
 #secondRow{
-  border: solid black;
-  width: 100%;
-  display: none;
+  clear: both;
 }
 
 #aboutUsArea{
-  width: 85%;
-
-  /*float: left;*/
+  width: 50%;
+  margin-left: 5%;
+  text-align: justify;
+  float: left;
 }
 
 #reviewArea{
-  width: 85%;
+  margin-top: 10%;
+  margin-bottom: 10%;
 
-  /*float: right;*/
 }
 
 #descriptionArea{
-  font-size: 25px;
   font-variant: small-caps;
   color: white;
 
 }
 #customerReview{
-  margin-top: 10%;
+  margin-top: 15%;
+
 }
-#reviewText{
-text-align: left;
-}
+
+
 /***************START FIGURES***************/
 
 #albumArea{
@@ -151,9 +149,6 @@ figure{
   float: left;
 }
 
-figure:hover{
-}
-
 .thumbPictures, .albumPictures{
   height: 300px;
   width: 330px;
@@ -171,24 +166,6 @@ figure:hover{
   font-size: 20px;
   font-variant: small-caps;
   text-align: center;
-}
-
-footer{
-  background: -webkit-linear-gradient(#414141, #262626);
-  background: -o-linear-gradient(#414141, #262626);
-  background: -moz-linear-gradient(#414141, #262626);
-  background: linear-gradient(#414141, #262626);
-  /*bottom: 0px;
-  left: 0px;
-  right: 0px;*/
-  width: 100%;
-  padding-left: 15px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  height: 40px;
-  font-size: 12px;
-  /*position: fixed;*/
-  color: white;
 }
 
 #plane{
@@ -241,6 +218,21 @@ footer{
 100% {left: 1600px;}
 }*/
 
+
+
+
+footer{
+  clear: both;
+  background: -webkit-linear-gradient(#414141, #262626);
+  background: -o-linear-gradient(#414141, #262626);
+  background: -moz-linear-gradient(#414141, #262626);
+  background: linear-gradient(#414141, #262626);
+  height: 100px;
+  font-size: 20px;
+  color: white;
+  padding: 25px;
+}
+
 #docText{
   margin-top: 10%;
   margin-left: 5%;
@@ -251,7 +243,6 @@ footer{
 #docFont{
   font-size: 24px;
   text-align: left;
-
 }
 
 #aboutText{
@@ -260,4 +251,3 @@ footer{
 #aboutText a{
   text-decoration: none;
   color: white;
-}

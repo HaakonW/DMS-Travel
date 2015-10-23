@@ -21,6 +21,7 @@ view.createPhotoAlbum = function (albumId){
   FB.api(
     '/' + albumId,'GET', {"fields":"photos{images, name, likes}"},
     function(response) {
+      console.log(response);
       for (var i = 0; i < response.photos.data.length; i++) {
         var temp = response.photos.data[i].images;
         bigPic = temp[0].source;

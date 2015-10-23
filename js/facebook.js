@@ -4,11 +4,10 @@ facebook.displayThumbsCallback;
 facebook.loadContent = function(user){
 
   facebook.getIdDescforThumbs(controller.displayThumbsCallback);
-  // facebook.getComments();
+   facebook.getComments();
   $("#splashScreen").hide();
-  $("#firstWelcome").hide();
+  $("#firstWelcome").html("Check out these top Australian destinations!");
   $("#faceLogin").hide();
-  $("#navLinks").show();
   userLoggedIn = user;
   document.getElementById('status').innerHTML = "";
 };
@@ -36,6 +35,7 @@ facebook.getIdDescforThumbs = function(displayThumbsCallback){
 };
 
 facebook.getComments = function(){
+  console.log("getCOmments");
   FB.api('/'+facebook.appID, 'GET', {"fields":"feed{likes, message}"},
   function(response) {
     for (var i = 0; i < response.feed.data.length; i++) {
@@ -43,7 +43,6 @@ facebook.getComments = function(){
           var tempArray = response.feed.data[i].likes.data;
           for (var j = 0; j < tempArray.length; j++) {
             if (tempArray[j].id == facebook.appID){
-              // console.log(response.feed.data[i].message);
               message = response.feed.data[i].message;
               view.createReview(message);
             }
