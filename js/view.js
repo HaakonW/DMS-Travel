@@ -1,4 +1,5 @@
 view.createThumbs= function(id, desc, likes){
+  $("#footer").hide();
 
   view.fadeHTML();
 
@@ -25,6 +26,7 @@ view.createThumbs= function(id, desc, likes){
 
 view.createPhotoAlbum = function (albumId){
   albumArea.innerHTML="";
+  $("#footer").hide();
   FB.api(
     '/' + albumId,'GET', {"fields":"name, photos{images, name, likes}"},
     function(response) {
@@ -53,15 +55,18 @@ view.createPhotoAlbum = function (albumId){
         generateHTML += "</p></figcaption></figure>";
         albumArea.innerHTML += generateHTML;
       } // END OUTER FOR
+      $("#footer").show();
+
     }
+
   );
 };
 
 view.createReview = function(message){
   view.firstWelcome("feedback");
-  $("#albumArea").fadeOut(300);
-  $("#responseArea").fadeOut(300);
-  $("#docFont").fadeOut(300);
+  $("#albumArea").hide();
+  $("#responseArea").hide();
+  $("#docFont").hide();
   $("#reviewArea").show();
   var html ="<br>"+ message + "<br>";
   $("#reviewText").append(html);
@@ -85,10 +90,10 @@ view.showDoc = function(){
 };
 
 view.showAbout = function(){
+  $("#footer").hide();
   $("#reviewArea").fadeOut(300);
   $("#albumArea").fadeOut(300);
   $("#responseArea").fadeIn(700);
-  $("#footer").hide();
   view.firstWelcome("About");
   var html = "<div id='aboutText'>";
   html+= "<h3 class='smallCaps'>Made by: Haakon Winther - Spring 2015</h3>";
@@ -117,6 +122,6 @@ view.fadeHTML = function(){
   $("#docBTN").fadeIn(2200);
   $("#aboutBTN").fadeIn(3000);
   $("#logout").fadeIn(4200);
-  $("#footer").fadeIn(4200);
-
+  $("#footer").delay(3500).fadeIn(1200);
+  $("nav").css("margin-top", "-10px");
 };

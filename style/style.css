@@ -17,7 +17,6 @@ font-size: 30px;
 font-variant: small-caps;
 color: white;
 text-shadow: 2px 2px #000000;
-
 }
 
 /***************START NAVBAR***************/
@@ -29,7 +28,7 @@ nav{
   background: linear-gradient(#414141, #262626);
   margin-left: -10px;
   margin-right: -10px;
-  margin-top: -10px;
+  margin-top: 30px;
 }
 
 nav span:hover{
@@ -47,81 +46,68 @@ nav span:hover{
   padding-left: 3%;
 }
 
-#logout{ float: right;}
-#feedback, #homeBTN, #logout, #docBTN, #aboutBTN { display: none;}
+#feedback, #homeBTN, #logout, #docBTN, #aboutBTN {
+  display: none;
+  border-right: solid white 1px;
+}
+
+#logout{
+  float: right;
+  margin-right: 35px;
+  font-size: 20px;
+  border: none;
+}
 
 /***************END NAV***************/
-
 /***************START SPLASHSCREEN***************/
 
 #firstWelcome{
   padding-top: 15px;
-  text-align: center;
   font-size: 45px;
-  font-variant: small-caps;
-  color: white;
   text-shadow: 2px 2px #000000;
-  margin-top: 3%;
+  margin-top: 50px;
 }
 
 #faceLogin{
-  /*margin-top: 22%;*/
   background: -webkit-linear-gradient(#414141, #262626);
   background: -o-linear-gradient(#414141, #262626);
   background: -moz-linear-gradient(#414141, #262626);
   background: linear-gradient(#414141, #262626);
-  font-variant: small-caps;
-  color: white;
-  text-align: center;
   font-size: 25px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   bottom: 25px;
   left: 0px;
   right: 0px;
   position: fixed;
-
 }
 
-#status{
-  font-size: 25px;
-  color: #262626;
-  color: white;
-}
-
-#userStatus{
+/*#userStatus{
   font-size: 15px;
   color: #61AFEF;
-}
+}*/
 /***************END SPLASHSCREEN***************/
 
-#secondRow{
-  clear: both;
-}
+#secondRow{ clear: both;}
 
-#aboutUsArea{
+/*#aboutUsArea{
   width: 50%;
   margin-left: 5%;
   text-align: justify;
   float: left;
-}
+}*/
 
 #reviewArea{
   margin-top: 10%;
   margin-bottom: 10%;
   display: none;
-
 }
 
-#descriptionArea{
-  font-variant: small-caps;
-  color: white;
 
-}
-#customerReview{
+/*#customerReview{
   margin-top: 15%;
 
-}
+}*/
 
 
 /***************START FIGURES***************/
@@ -138,18 +124,18 @@ nav span:hover{
 figure{
   cursor: pointer;
   background-color: #F2F2F2;
-  padding-left: 35px;
-  padding-right: 35px;
-  padding-top: 35px;
+  padding: 35px;
+  padding-bottom: 0px;
   border-radius: 5px;
   margin-left: 3%;
-  box-shadow: 10px 10px 5px #888888;
+  box-shadow: 17px 32px 100px -4px rgba(0,0,0,0.75);
   float: left;
+  height: 445px;
 }
 
 .thumbPictures, .albumPictures{
-  height: 300px;
-  width: 330px;
+  height: 310px;
+  width: 340px;
   border-radius: 5px;
 }
 
@@ -157,65 +143,16 @@ figure{
   text-align: center;
   font-variant: small-caps;
   font-size: 25px;
+  width: 300px;
 }
 
 .likeClicker{
+  width: 300px;
   color: #197FD4;
-  font-size: 20px;
+  font-size: 18px;
   font-variant: small-caps;
   text-align: center;
 }
-
-#plane{
-  width: 100px;
-  height: 50px;
-  position: fixed;
-  bottom: 45px;
-  z-index: 1;
-  animation: loadingPic 20s;
-  animation-delay: 2s;
-  animation-iteration-count: 1;
-}
-
-@keyframes loadingPic{
-0% {left:0%; bottom: 45px;}
-/*5% {left:15%; bottom: 45px;}
-10% {left:20%; bottom: 45px;}*/
-/*15% {left:30px;}
-20% {left:45px;}
-25% {left:67px;}
-30% {left:85px;}
-35% {left:100px;}
-40% {left:120px;}
-45% {left:170px;}
-50% {left:230px;}
-55% {transform: rotateY(50deg);}
-/*65% {left:450px; bottom: 65px;}
-70% {left:600px; bottom: 80px;}
-75% {left:750px; bottom: 100px;}
-80% {left:1000px; bottom: 130px;}
-85% {left:1200px; bottom: 170px;}
-90% {left:1400px; bottom: 210px;}
-95% {left:1600px; bottom: 300px;}*/
-100% {left: 130%; bottom: 60%}
-}
-
-
-/*@-webkit-keyframes loadingPic{
-0% {left:100px;}
-10% {left:200px;}
-20% {left:300px;}
-30% {left:400px;}
-40% {left:500px;}
-50% {left:600px;}
-60% {left:700px;}
-70% {left:800px;}
-80% {left:850px;}
-90% {left:900px;}
-100% {left: 1600px;}
-}*/
-
-
 
 
 footer{
@@ -230,6 +167,13 @@ footer{
   padding: 25px;
   display: none;
 }
+
+#descriptionArea{
+  font-variant: small-caps;
+  color: white;
+}
+
+/**********SUB SITES**********/
 
 #docText{
   margin-top: 10%;
@@ -249,3 +193,27 @@ footer{
 #aboutText a{
   text-decoration: none;
   color: white;
+}
+
+/**********SPLASH SCREEN**********/
+
+#plane{
+  width: 100px;
+  height: 50px;
+  position: fixed;
+  bottom: 45px;
+  z-index: 1;
+  animation: loadingPic 20s;
+  animation-delay: 2s;
+  animation-iteration-count: 1;
+}
+
+@keyframes loadingPic{
+0% {left:0%; bottom: 45px;}
+100% {left: 130%; bottom: 60%}
+}
+
+@-webkit-keyframes loadingPic{
+  0% {left:0%; bottom: 45px;}
+  100% {left: 130%; bottom: 60%}
+  }
