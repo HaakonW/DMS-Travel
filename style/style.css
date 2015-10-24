@@ -55,6 +55,10 @@ nav span:hover{
   font-size: 2em;
   font-weight: bold;
 }
+
+#feedback, #homeBTN{
+  display: none;
+}
 /***************END NAV***************/
 /***************START SPLASHSCREEN***************/
 
@@ -112,6 +116,7 @@ nav span:hover{
 #reviewArea{
   margin-top: 10%;
   margin-bottom: 10%;
+  display: none;
 
 }
 
@@ -129,7 +134,7 @@ nav span:hover{
 /***************START FIGURES***************/
 
 #albumArea{
-  margin-top: 5%;
+  margin-top: 8%;
   margin-bottom: 5%;
   display: block;
   margin-left: 5%;

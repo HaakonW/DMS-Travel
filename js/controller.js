@@ -52,3 +52,7 @@ $(document).ready(function(){
 $(document).on("click", "#aboutBTN", function(){view.showAbout();});
 $(document).on("click", "#docBTN", function(){view.showDoc();});
 $(document).on("click", "#homeBTN", function(){facebook.loadContent();});
+$(document).on("click", "#feedback", function(){
+  document.getElementById('reviewText').innerHTML = "";
+  facebook.getComments()
+  ;});

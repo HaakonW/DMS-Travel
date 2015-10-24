@@ -2,12 +2,7 @@ facebook.appID = 815157038515764;
 facebook.displayThumbsCallback;
 
 facebook.loadContent = function(user){
-
   facebook.getIdDescforThumbs(controller.displayThumbsCallback);
-   facebook.getComments();
-  $("#splashScreen").hide();
-  $("#firstWelcome").html("Check out these top Australian destinations!");
-  $("#faceLogin").hide();
   userLoggedIn = user;
   document.getElementById('status').innerHTML = "";
 };
@@ -35,7 +30,6 @@ facebook.getIdDescforThumbs = function(displayThumbsCallback){
 };
 
 facebook.getComments = function(){
-  console.log("getCOmments");
   FB.api('/'+facebook.appID, 'GET', {"fields":"feed{likes, message}"},
   function(response) {
     for (var i = 0; i < response.feed.data.length; i++) {
@@ -54,7 +48,6 @@ facebook.getComments = function(){
 };
 
 facebook.likeThis = function(pictureId){
-  console.log("THIS IS PIC ID: " +pictureId);
   FB.api( '/'+pictureId+'/likes', 'POST', {},
     function(response) {
         if (response.success === true)  facebook.updateLikes(pictureId);
@@ -81,7 +74,6 @@ facebook.updateLikes = function(pictureId){
 
 facebook.didYouLike = function (likeArray)
 {
-  console.log("user logged in: "+userLoggedIn);
   for (var i = 0; i < likeArray.length; i++) {
     // console.log(likeArray[i].id);
     if (userLoggedIn === likeArray[i].id) return true;

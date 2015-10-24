@@ -1,15 +1,22 @@
 view.createThumbs= function(id, desc, likes){
-  var pic;
+  $("#splashScreen").hide();
+  $("#faceLogin").hide();
+  $("#homeBTN").fadeIn(500);
+  $("#feedback").fadeIn(500);
+
+  view.firstWelcome("top");
   FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
   function(response) {
     getCoverSource = response.cover_photo.id;
     FB.api( '/'+getCoverSource, 'GET', {"fields":"source, id, link, album"},
     function (response) {
-      pic = response.source;
+      var pic = response.source;
       albumArea.innerHTML+=
       "<figure class='facebookFigures' id='"+id+"' onclick='view.createPhotoAlbum("+id+")'><img class='thumbPictures' src='"+pic+
       "'><figcaption><p class='albumDesc'>" + desc + "</p><p class='likeClicker'>" + likes +
       " People like this album</p></figcaption></figure>";
+      $("#albumArea").fadeIn(600);
+      $("#responseArea").fadeOut(500);
     }
   );
 }
@@ -19,9 +26,10 @@ view.createThumbs= function(id, desc, likes){
 view.createPhotoAlbum = function (albumId){
   albumArea.innerHTML="";
   FB.api(
-    '/' + albumId,'GET', {"fields":"photos{images, name, likes}"},
+    '/' + albumId,'GET', {"fields":"name, photos{images, name, likes}"},
     function(response) {
-      console.log(response);
+      $( "#firstWelcome" ).fadeOut(500);
+      view.firstWelcome(response.name);
       for (var i = 0; i < response.photos.data.length; i++) {
         var temp = response.photos.data[i].images;
         bigPic = temp[0].source;
@@ -50,12 +58,26 @@ view.createPhotoAlbum = function (albumId){
   );
 };
 
-view.createReview = function(text){
-  document.getElementById('reviewText').innerHTML += "<br>"+ message + "<br>";
+view.createReview = function(message){
+  view.firstWelcome("feedback");
+  $("#albumArea").fadeOut(300);
+  $("#responseArea").fadeOut(300);
+  $("#docFont").fadeOut(300);
+  $("#reviewArea").show();
+  var html ="<br>"+ message + "<br>";
+  $("#reviewText").append(html);
+  $("#footer").hide();
 };
 
 view.showDoc = function(){
-  firstWelcome.innerHTML = "Documentation";
+  // document.getElementById('reviewText').innerHTML = "";
+
+  view.firstWelcome("Documentation");
+  $("#albumArea").fadeOut(300);
+  $("#reviewArea").fadeOut(300);
+  $("#responseArea").fadeIn(700);
+  $("#footer").hide();
+
   var html = "<div id='docText'>";
   html += "<p class='smallCaps' id='docFont'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at, voluptate officiis, rem, quisquam perferendis quas ipsam illum mollitia odio deleniti, et earum delectus sint voluptates sequi fugit amet soluta.";
   html += "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at, voluptate officiis, rem, quisquam perferendis quas ipsam illum mollitia odio deleniti, et earum delectus sint voluptates sequi fugit amet soluta.</p>";
@@ -63,11 +85,14 @@ view.showDoc = function(){
   html += "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita at, voluptate officiis, rem, quisquam perferendis quas ipsam illum mollitia odio deleniti, et earum delectus sint voluptates sequi fugit amet soluta.</p>";
   html += "</div>";
   responseArea.innerHTML = html;
-
 };
 
 view.showAbout = function(){
-  firstWelcome.innerHTML = "About";
+  $("#reviewArea").fadeOut(300);
+  $("#albumArea").fadeOut(300);
+  $("#responseArea").fadeIn(700);
+  $("#footer").hide();
+  view.firstWelcome("About");
   var html = "<div id='aboutText'>";
   html+= "<h3 class='smallCaps'>Made by: Haakon Winther - Spring 2015</h3>";
   html+="<h4 class='smallCaps'><a href=''>HaakonWinther@gmail.com</a></h4>";
@@ -79,5 +104,10 @@ view.showAbout = function(){
 view.showSplash = function(){
   firstWelcome.innerHTML = "Welcome To Dms Travel";
   responseArea.innerHTML = "";
+};
 
+view.firstWelcome = function(string){
+  $("#firstWelcome").html(string).fadeIn(600);
+  if(string=== "top") $("#firstWelcome").fadeIn(1500).html("Check out these top Australian destinations!");
+  if(string=== "feedback") $("#firstWelcome").fadeIn(1500).html("Feedback from our Customers");
 };
