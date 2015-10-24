@@ -43,11 +43,7 @@ $(document).ready(function(){
   }(document, 'script', 'facebook-jssdk'));
 
 });
-//facebook.getIdDescforThumbs(view.getIdDescforThumbs);
 
-// controller.displayThumbsCallback = function(url, description, numberOfLikes){
-//   view.createThumbs(url, description, numberOfLikes);
-// };
 
 $(document).on("click", "#aboutBTN", function(){view.showAbout();});
 $(document).on("click", "#docBTN", function(){view.showDoc();});
@@ -56,3 +52,9 @@ $(document).on("click", "#feedback", function(){
   document.getElementById('reviewText').innerHTML = "";
   facebook.getComments()
   ;});
+
+$(document).on("click", "#logout", function(){
+  FB.logout(function(response) {
+    location.reload();
+});
+});

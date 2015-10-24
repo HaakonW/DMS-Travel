@@ -1,8 +1,6 @@
 view.createThumbs= function(id, desc, likes){
-  $("#splashScreen").hide();
-  $("#faceLogin").hide();
-  $("#homeBTN").fadeIn(500);
-  $("#feedback").fadeIn(500);
+
+  view.fadeHTML();
 
   view.firstWelcome("top");
   FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
@@ -17,6 +15,8 @@ view.createThumbs= function(id, desc, likes){
       " People like this album</p></figcaption></figure>";
       $("#albumArea").fadeIn(600);
       $("#responseArea").fadeOut(500);
+      $("#reviewArea").hide();
+
     }
   );
 }
@@ -28,7 +28,7 @@ view.createPhotoAlbum = function (albumId){
   FB.api(
     '/' + albumId,'GET', {"fields":"name, photos{images, name, likes}"},
     function(response) {
-      $( "#firstWelcome" ).fadeOut(500);
+      // $( "#firstWelcome" ).fadeOut(500);
       view.firstWelcome(response.name);
       for (var i = 0; i < response.photos.data.length; i++) {
         var temp = response.photos.data[i].images;
@@ -48,11 +48,10 @@ view.createPhotoAlbum = function (albumId){
         pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
         generateHTML = "<figure>" + pic +"<figcaption><p class='photoDesc'>"+ desc  +"</p>";
         generateHTML += "<div id='"+picId+"'";
-        if (boolean === false){       generateHTML += "onclick='facebook.likeThis("+picId+")'><p class='likeClicker'>"+likesCounter +" Likes - Like This Picture</div>";  }
+        if (boolean === false){     generateHTML += "onclick='facebook.likeThis("+picId+")'><p class='likeClicker'>"+likesCounter +" Likes - Like This Picture</div>";  }
         else if(boolean === true){  generateHTML += "onclick='facebook.dislikeThis("+picId+")'><p class='likeClicker'>"+likesCounter +" Likes - Unlike This Picture</div>"; }
-        generateHTML += "</hp></figcaption></figure>";
+        generateHTML += "</p></figcaption></figure>";
         albumArea.innerHTML += generateHTML;
-        // albumArea.innerHTML += "<figure class='photoAlbum'>" + pic +"<figcaption><h5 class='photoDesc'>" + desc  +"</h5>"+likesCounter+" Likes<h5 onclick='likeThis("+picId+")'>Like this picture</h5><h5 id="+picId+"></h5>"+"<h5>"+boolean+"</h5></figcaption></figure>";
       } // END OUTER FOR
     }
   );
@@ -70,8 +69,6 @@ view.createReview = function(message){
 };
 
 view.showDoc = function(){
-  // document.getElementById('reviewText').innerHTML = "";
-
   view.firstWelcome("Documentation");
   $("#albumArea").fadeOut(300);
   $("#reviewArea").fadeOut(300);
@@ -110,4 +107,16 @@ view.firstWelcome = function(string){
   $("#firstWelcome").html(string).fadeIn(600);
   if(string=== "top") $("#firstWelcome").fadeIn(1500).html("Check out these top Australian destinations!");
   if(string=== "feedback") $("#firstWelcome").fadeIn(1500).html("Feedback from our Customers");
+};
+
+view.fadeHTML = function(){
+  $("#splashScreen").hide();
+  $("#faceLogin").hide();
+  $("#homeBTN").fadeIn(400);
+  $("#feedback").fadeIn(1200);
+  $("#docBTN").fadeIn(2200);
+  $("#aboutBTN").fadeIn(3000);
+  $("#logout").fadeIn(4200);
+  $("#footer").fadeIn(4200);
+
 };

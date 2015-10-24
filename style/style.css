@@ -1,6 +1,4 @@
-html{
-  height: 100%;
-}
+html{ height: 100%;}
 
 body{
   background: -webkit-linear-gradient(#61AFEF, #197FD4); /* For Safari 5.1 to 6.0 */
@@ -22,13 +20,13 @@ text-shadow: 2px 2px #000000;
 
 }
 
-/***************START NAV***************/
+/***************START NAVBAR***************/
 nav{
   height: 100px;
-  background: -webkit-linear-gradient(#414141, #262626); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#414141, #262626); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#414141, #262626); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#414141, #262626); /* Standard syntax */
+  background: -webkit-linear-gradient(#414141, #262626);
+  background: -o-linear-gradient(#414141, #262626);
+  background: -moz-linear-gradient(#414141, #262626);
+  background: linear-gradient(#414141, #262626);
   margin-left: -10px;
   margin-right: -10px;
   margin-top: -10px;
@@ -49,17 +47,11 @@ nav span:hover{
   padding-left: 3%;
 }
 
+#logout{ float: right;}
+#feedback, #homeBTN, #logout, #docBTN, #aboutBTN { display: none;}
 
-#logo{
-  float: right;
-  font-size: 2em;
-  font-weight: bold;
-}
-
-#feedback, #homeBTN{
-  display: none;
-}
 /***************END NAV***************/
+
 /***************START SPLASHSCREEN***************/
 
 #firstWelcome{
@@ -69,10 +61,11 @@ nav span:hover{
   font-variant: small-caps;
   color: white;
   text-shadow: 2px 2px #000000;
+  margin-top: 3%;
 }
 
 #faceLogin{
-  margin-top: 22%;
+  /*margin-top: 22%;*/
   background: -webkit-linear-gradient(#414141, #262626);
   background: -o-linear-gradient(#414141, #262626);
   background: -moz-linear-gradient(#414141, #262626);
@@ -196,9 +189,8 @@ figure{
 40% {left:120px;}
 45% {left:170px;}
 50% {left:230px;}
-55% {left:300px;}
-60% {left:350px; bottom: 50px;}
-65% {left:450px; bottom: 65px;}
+55% {transform: rotateY(50deg);}
+/*65% {left:450px; bottom: 65px;}
 70% {left:600px; bottom: 80px;}
 75% {left:750px; bottom: 100px;}
 80% {left:1000px; bottom: 130px;}
@@ -236,6 +228,7 @@ footer{
   font-size: 20px;
   color: white;
   padding: 25px;
+  display: none;
 }
 
 #docText{
