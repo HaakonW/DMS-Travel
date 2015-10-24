@@ -1,8 +1,8 @@
+// A method that creates the thubnails the user se on the first page
+
 view.createThumbs= function(id, desc, likes){
   $("#footer").hide();
-
   view.fadeHTML();
-
   view.firstWelcome("top");
   FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
   function(response) {
@@ -17,7 +17,6 @@ view.createThumbs= function(id, desc, likes){
       $("#albumArea").fadeIn(600);
       $("#responseArea").fadeOut(500);
       $("#reviewArea").hide();
-
     }
   );
 }
@@ -28,7 +27,7 @@ view.createPhotoAlbum = function (albumId){
   albumArea.innerHTML="";
   $("#footer").hide();
   FB.api(
-    '/' + albumId,'GET', {"fields":"name, photos{images, name, likes}"},
+    '/' + albumId,'GET', {"fields":"name, photos{images, name, likes.limit(50)}"},
     function(response) {
       // $( "#firstWelcome" ).fadeOut(500);
       view.firstWelcome(response.name);

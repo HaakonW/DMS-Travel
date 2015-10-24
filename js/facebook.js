@@ -9,7 +9,7 @@ facebook.loadContent = function(user){
 
 facebook.getIdDescforThumbs = function(displayThumbsCallback){
   facebook.displayThumbsCallback = displayThumbsCallback;
-  FB.api('/'+facebook.appID,'GET', {"fields":"albums{cover_photo,location,likes},description"},
+  FB.api('/'+facebook.appID,'GET', {"fields":"albums{cover_photo,location,likes.limit(50)},description"},
     function(response) {
       descriptionArea.innerHTML=response.description;
       albumArea.innerHTML= "";
