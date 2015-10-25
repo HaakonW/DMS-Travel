@@ -42,7 +42,7 @@ $(document).ready(function(){
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 
-});
+}); // end Document.ready
 
 
 $(document).on("click", "#aboutBTN", function(){view.showAbout();});

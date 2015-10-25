@@ -166,7 +166,7 @@ footer{
   font-size: 20px;
   color: white;
   padding: 25px;
-  display: none;
+  /*display: none;*/
 }
 
 #descriptionArea{

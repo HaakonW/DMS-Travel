@@ -15,7 +15,7 @@ view.fadeHTML = function(){
 
 // A method that creates the thubnails the user se on the first page.
 //Gets its parameter from facebook.createThumbs
-view.createThumbs= function(id, desc, likes, pic){
+view.createThumbs= function(id, desc, likes, pic, footerData){
   view.fadeHTML();
   view.firstWelcome("top");
       albumArea.innerHTML+=
@@ -25,6 +25,7 @@ view.createThumbs= function(id, desc, likes, pic){
       $("#albumArea").fadeIn(600);
       $("#responseArea").fadeOut(500);
       $("#reviewArea").hide();
+      $("#descriptionArea").html(footerData);
 };
 
 //A method that changes the heading of the page.
