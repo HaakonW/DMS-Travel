@@ -116,7 +116,7 @@ nav span:hover{
   margin-top: 8%;
   margin-bottom: 5%;
   display: block;
-  margin-left: 5%;
+  margin-left: 8%;
   margin-right: auto;
   width: 90%;
 }
@@ -161,7 +161,8 @@ footer{
   background: -o-linear-gradient(#414141, #262626);
   background: -moz-linear-gradient(#414141, #262626);
   background: linear-gradient(#414141, #262626);
-  height: 100px;
+  /*height: 100px;*/
+  padding-top: 15px;
   font-size: 20px;
   color: white;
   padding: 25px;

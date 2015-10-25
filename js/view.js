@@ -1,7 +1,20 @@
-// A method that creates the thubnails the user se on the first page
+//A method that is beeing called when the home page loads.
+//Creates navbar at hides necessary elements from the splashScreen
 
+view.fadeHTML = function(){
+  $("#splashScreen").hide();
+  $("#faceLogin").hide();
+  $("#homeBTN").fadeIn(400);
+    $("#feedback").fadeIn(1200);
+      $("#docBTN").fadeIn(2200);
+        $("#aboutBTN").fadeIn(3000);
+          $("#logout").fadeIn(4200);
+            // $("#footer").delay(3500).fadeIn(1200);
+              $("nav").css("margin-top", "-10px");
+};
+
+// A method that creates the thubnails the user se on the first page.
 view.createThumbs= function(id, desc, likes){
-  $("#footer").hide();
   view.fadeHTML();
   view.firstWelcome("top");
   FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
@@ -11,7 +24,7 @@ view.createThumbs= function(id, desc, likes){
     function (response) {
       var pic = response.source;
       albumArea.innerHTML+=
-      "<figure class='facebookFigures' id='"+id+"' onclick='view.createPhotoAlbum("+id+")'><img class='thumbPictures' src='"+pic+
+      "<figure class='facebookFigures' id='"+id+"' onclick='facebook.fetchPhotoData("+id+")'><img class='thumbPictures' src='"+pic+
       "'><figcaption><p class='albumDesc'>" + desc + "</p><p class='likeClicker'>" + likes +
       " People like this album</p></figcaption></figure>";
       $("#albumArea").fadeIn(600);
@@ -23,28 +36,16 @@ view.createThumbs= function(id, desc, likes){
 );
 };
 
-view.createPhotoAlbum = function (albumId){
-  albumArea.innerHTML="";
-  $("#footer").hide();
-  FB.api(
-    '/' + albumId,'GET', {"fields":"name, photos{images, name, likes.limit(50)}"},
-    function(response) {
-      // $( "#firstWelcome" ).fadeOut(500);
-      view.firstWelcome(response.name);
-      for (var i = 0; i < response.photos.data.length; i++) {
-        var temp = response.photos.data[i].images;
-        bigPic = temp[0].source;
-        desc = response.photos.data[i].name;
-        if (!desc) desc = "No Title";
-        if (typeof response.photos.data[i].likes === "undefined")  likesCounter = 0;
-        else {
-          likesCounter = response.photos.data[i].likes.data.length;
-          boolean = facebook.didYouLike(response.photos.data[i].likes.data);
-        }
-        for (var j = 0; j < temp.length; j++) {
-          if (temp[j].height === 320) thumbSource = temp[j].source;
-        } // END INNER FOR
-        var picId = response.photos.data[i].id;
+//A method that changes the heading of the page. From Home to feedback for example.
+view.firstWelcome = function(string){
+  $("#firstWelcome").html(string).fadeIn(1500);
+  if(string=== "top") $("#firstWelcome").fadeIn(1500).html("Check out these top Australian destinations!");
+  if(string=== "feedback") $("#firstWelcome").fadeIn(1500).html("Feedback from our Customers");
+};
+
+//Gets the description, pictureID, a source for the thubnail Picture and a boolean if the picture got likes or not.
+//Then starts to generate the HTML to create the photos from the clicked Album.
+view.createPhotoAlbum = function (desc, picId, thumbSource, boolean){
         var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
         pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
         generateHTML = "<figure>" + pic +"<figcaption><p class='photoDesc'>"+ desc  +"</p>";
@@ -53,13 +54,8 @@ view.createPhotoAlbum = function (albumId){
         else if(boolean === true){  generateHTML += "onclick='facebook.dislikeThis("+picId+")'><p class='likeClicker'>"+likesCounter +" Likes - Unlike This Picture</div>"; }
         generateHTML += "</p></figcaption></figure>";
         albumArea.innerHTML += generateHTML;
-      } // END OUTER FOR
-      $("#footer").show();
+    };
 
-    }
-
-  );
-};
 
 view.createReview = function(message){
   view.firstWelcome("feedback");
@@ -105,22 +101,4 @@ view.showAbout = function(){
 view.showSplash = function(){
   firstWelcome.innerHTML = "Welcome To Dms Travel";
   responseArea.innerHTML = "";
-};
-
-view.firstWelcome = function(string){
-  $("#firstWelcome").html(string).fadeIn(600);
-  if(string=== "top") $("#firstWelcome").fadeIn(1500).html("Check out these top Australian destinations!");
-  if(string=== "feedback") $("#firstWelcome").fadeIn(1500).html("Feedback from our Customers");
-};
-
-view.fadeHTML = function(){
-  $("#splashScreen").hide();
-  $("#faceLogin").hide();
-  $("#homeBTN").fadeIn(400);
-  $("#feedback").fadeIn(1200);
-  $("#docBTN").fadeIn(2200);
-  $("#aboutBTN").fadeIn(3000);
-  $("#logout").fadeIn(4200);
-  $("#footer").delay(3500).fadeIn(1200);
-  $("nav").css("margin-top", "-10px");
 };

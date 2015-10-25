@@ -80,3 +80,41 @@ facebook.didYouLike = function (likeArray)
   }
   return false;
 };
+
+
+//The method that creates the photos fetched from Facebook.
+//Also creates both likes and the description for the picture.
+facebook.fetchPhotoData = function (albumId){
+  albumArea.innerHTML="";           //Clears the HTML incase there is something there from earilier
+  FB.api(
+    '/' + albumId,'GET', {"fields":"name, photos{images, name, likes.limit(50)}"},
+    function(response) {
+      // $( "#firstWelcome" ).fadeOut(500);
+      view.firstWelcome(response.name);       //VIA CONTROLLER?
+      for (var i = 0; i < response.photos.data.length; i++) {
+        var temp = response.photos.data[i].images;
+        bigPic = temp[0].source;
+        desc = response.photos.data[i].name;
+        if (!desc) desc = "No Title";
+        if (typeof response.photos.data[i].likes === "undefined")  likesCounter = 0;
+        else {
+          likesCounter = response.photos.data[i].likes.data.length;
+          boolean = facebook.didYouLike(response.photos.data[i].likes.data);
+        }
+        for (var j = 0; j < temp.length; j++) {
+          if (temp[j].height === 320) thumbSource = temp[j].source;
+        } // END INNER FOR
+        var picId = response.photos.data[i].id;
+        view.createPhotoAlbum(desc, picId, thumbSource, boolean);
+
+        // var pic = "<a href='"+bigPic+"'data-lightbox='myPhoto'" + "data-title='"+desc+"'>";
+        // pic += "<img class='albumPictures' src='" + thumbSource + "'></a>";
+        // generateHTML = "<figure>" + pic +"<figcaption><p class='photoDesc'>"+ desc  +"</p>";
+        // generateHTML += "<div id='"+picId+"'";
+        // if (boolean === false){     generateHTML += "onclick='facebook.likeThis("+picId+")'><p class='likeClicker'>"+likesCounter +" Likes - Like This Picture</div>";  }
+        // else if(boolean === true){  generateHTML += "onclick='facebook.dislikeThis("+picId+")'><p class='likeClicker'>"+likesCounter +" Likes - Unlike This Picture</div>"; }
+        // generateHTML += "</p></figcaption></figure>";
+        // albumArea.innerHTML += generateHTML;
+      } // END OUTER FOR
+    });
+};
