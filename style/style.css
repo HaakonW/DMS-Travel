@@ -185,8 +185,7 @@ footer{
 }
 
 #documentationText{
-  text-align: left;
-
+  text-align: justify;
 }
 
 #docFont{
@@ -196,6 +195,7 @@ footer{
 
 #aboutText{
   margin-top: 10%;
+  text-align: justify;
 }
 #aboutText a{
   color: white;
@@ -204,8 +204,6 @@ footer{
 #aboutText a:hover{
   color: black;
   text-shadow: none;
-
-
 }
 
 /**********SPLASH SCREEN**********/
