@@ -1,10 +1,10 @@
 html{ height: 100%;}
 
 body{
-  background: -webkit-linear-gradient(#61AFEF, #197FD4); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#61AFEF, #197FD4); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#61AFEF, #197FD4); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#61AFEF, #197FD4); /* Standard syntax */
+  background: -webkit-linear-gradient(#61AFEF, #197FD4);
+  background: -o-linear-gradient(#61AFEF, #197FD4);
+  background: -moz-linear-gradient(#61AFEF, #197FD4);
+  background: linear-gradient(#61AFEF, #197FD4);
   height: 100%;
   margin: 0;
   background-repeat: no-repeat;
@@ -82,34 +82,16 @@ nav span:hover{
   position: fixed;
 }
 
-/*#userStatus{
-  font-size: 15px;
-  color: #61AFEF;
-}*/
 /***************END SPLASHSCREEN***************/
 
 #secondRow{ clear: both;}
 
-/*#aboutUsArea{
-  width: 50%;
-  margin-left: 5%;
-  text-align: justify;
-  float: left;
-}*/
 
 #reviewArea{
   margin-top: 10%;
   margin-bottom: 10%;
   display: none;
 }
-
-
-/*#customerReview{
-  margin-top: 15%;
-
-}*/
-
-
 /***************START FIGURES***************/
 
 #albumArea{
@@ -153,7 +135,6 @@ figure{
   font-variant: small-caps;
   text-align: center;
 }
-
 
 footer{
   clear: both;
