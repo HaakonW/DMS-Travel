@@ -43,7 +43,7 @@ facebook.createThumbs = function(id, desc, likes){
     function (response) {
       var pic = response.source;
       console.log("PIC: "+pic);
-      view.createThumbs(id, desc, likes, pic); //VIA CONTROLLER?
+      view.createThumbs(id, desc, likes, pic); //?
     }
   );
 }
@@ -62,7 +62,7 @@ facebook.getComments = function(){
           for (var j = 0; j < tempArray.length; j++) {
             if (tempArray[j].id == facebook.appID){             //Check if the like is equal to the like.id = ADMIN
               message = response.feed.data[i].message;
-              view.createReview(message); // VIA CONTROLLER?
+              view.createReview(message); 
             }
           } //END SECOND FOR
         }//END CHECK IF
@@ -93,7 +93,7 @@ facebook.getNewLikesCount = function(pictureId){
   FB.api('/'+pictureId, 'GET', {"fields":"album"},
   function(response) {
     albumID = response.album.id;
-    facebook.fetchPhotoData(albumID); //VIA CONTROLLER?
+    facebook.fetchPhotoData(albumID); //?
   }
 );
 };
@@ -105,7 +105,7 @@ facebook.fetchPhotoData = function (albumId){
   FB.api(
     '/' + albumId,'GET', {"fields":"name, photos{images, name, likes.limit(50)}"},
     function(response) {
-      view.firstWelcome(response.name);                                                 //VIA CONTROLLER?
+      view.firstWelcome(response.name);                                                 //
       for (var i = 0; i < response.photos.data.length; i++) {
         var temp = response.photos.data[i].images;
         bigPic = temp[0].source;                                                       //The big picture to display in lightbox, always number one in the array
@@ -120,7 +120,7 @@ facebook.fetchPhotoData = function (albumId){
           if (temp[j].height === 320) thumbSource = temp[j].source;                 //Get the pic with height 320 as thumb
         } // END INNER FOR
         var picId = response.photos.data[i].id;
-        view.createPhotoAlbum(desc, picId, thumbSource, boolean);                   // VIA CONTROLLER ? call the view to start rendering HTML
+        view.createPhotoAlbum(desc, picId, thumbSource, boolean);                   //  call the view to start rendering HTML
       } // END OUTER FOR
     });
 };

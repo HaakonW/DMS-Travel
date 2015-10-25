@@ -161,12 +161,12 @@ footer{
   background: -o-linear-gradient(#414141, #262626);
   background: -moz-linear-gradient(#414141, #262626);
   background: linear-gradient(#414141, #262626);
-  /*height: 100px;*/
   padding-top: 15px;
   font-size: 20px;
   color: white;
   padding: 25px;
-  /*display: none;*/
+  display: none;
+  margin-top: 10%;
 }
 
 #descriptionArea{
@@ -179,8 +179,14 @@ footer{
 #docText{
   margin-top: 10%;
   margin-left: 5%;
+  margin-bottom: 10%;
   color: white;
-  width: 60%;
+  width: 90%;
+}
+
+#documentationText{
+  text-align: left;
+
 }
 
 #docFont{
@@ -192,8 +198,14 @@ footer{
   margin-top: 10%;
 }
 #aboutText a{
-  text-decoration: none;
   color: white;
+}
+
+#aboutText a:hover{
+  color: black;
+  text-shadow: none;
+
+
 }
 
 /**********SPLASH SCREEN**********/
