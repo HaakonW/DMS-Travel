@@ -14,15 +14,9 @@ view.fadeHTML = function(){
 };
 
 // A method that creates the thubnails the user se on the first page.
-view.createThumbs= function(id, desc, likes){
+view.createThumbs= function(id, desc, likes, pic){
   view.fadeHTML();
   view.firstWelcome("top");
-  FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
-  function(response) {
-    getCoverSource = response.cover_photo.id;
-    FB.api( '/'+getCoverSource, 'GET', {"fields":"source, id, link, album"},
-    function (response) {
-      var pic = response.source;
       albumArea.innerHTML+=
       "<figure class='facebookFigures' id='"+id+"' onclick='facebook.fetchPhotoData("+id+")'><img class='thumbPictures' src='"+pic+
       "'><figcaption><p class='albumDesc'>" + desc + "</p><p class='likeClicker'>" + likes +
@@ -30,10 +24,6 @@ view.createThumbs= function(id, desc, likes){
       $("#albumArea").fadeIn(600);
       $("#responseArea").fadeOut(500);
       $("#reviewArea").hide();
-    }
-  );
-}
-);
 };
 
 //A method that changes the heading of the page. From Home to feedback for example.

@@ -4,7 +4,7 @@ facebook.displayThumbsCallback;
 facebook.loadContent = function(user){
   facebook.getIdDescforThumbs(controller.displayThumbsCallback);
   userLoggedIn = user;
-  document.getElementById('status').innerHTML = "";
+  // document.getElementById('status').innerHTML = "";
 };
 
 facebook.getIdDescforThumbs = function(displayThumbsCallback){
@@ -22,11 +22,25 @@ facebook.getIdDescforThumbs = function(displayThumbsCallback){
           numberOfLikes = parseInt(likes.length);          //Save likes
           url = response.albums.data[i].id;
           description = description.substring(0, description.indexOf(',')); // I only want the name. Looks cleaner.
-          view.createThumbs(url, description, numberOfLikes); // call method to create URL, Desc and Likes
+          facebook.createThumbs(url, description, numberOfLikes); // call method to create URL, Desc and Likes
         } //End IF
        } //END FOR
     }
   );
+};
+
+facebook.createThumbs = function(id, desc, likes){
+  FB.api('/'+id, 'GET', {"fields":"cover_photo, photos"},
+  function(response) {
+    getCoverSource = response.cover_photo.id;
+    FB.api( '/'+getCoverSource, 'GET', {"fields":"source, id, link, album"},
+    function (response) {
+      var pic = response.source;
+      view.createThumbs(id, desc, likes, pic); //VIA CONTROLLER?
+    }
+  );
+}
+);
 };
 
 facebook.getComments = function(){
@@ -50,7 +64,7 @@ facebook.getComments = function(){
 facebook.likeThis = function(pictureId){
   FB.api( '/'+pictureId+'/likes', 'POST', {},
     function(response) {
-        if (response.success === true)  facebook.updateLikes(pictureId);
+        if (response.success === true)  facebook.getNewLikesCount(pictureId);
     }
   );
 };
@@ -58,12 +72,12 @@ facebook.likeThis = function(pictureId){
 facebook.dislikeThis = function(pictureId){
   FB.api( '/'+pictureId+'/likes', 'DELETE', {},
     function(response) {
-        if (response.success === true) facebook.updateLikes(pictureId);
+      if (response.success === true) facebook.getNewLikesCount(pictureId);
     }
   );
 };
 
-facebook.updateLikes = function(pictureId){
+facebook.getNewLikesCount = function(pictureId){
   FB.api('/'+pictureId, 'GET', {"fields":"album"},
   function(response) {
     albumID = response.album.id;
@@ -74,13 +88,9 @@ facebook.updateLikes = function(pictureId){
 
 facebook.didYouLike = function (likeArray)
 {
-  for (var i = 0; i < likeArray.length; i++) {
-    // console.log(likeArray[i].id);
-    if (userLoggedIn === likeArray[i].id) return true;
-  }
+  for (var i = 0; i < likeArray.length; i++)  if (userLoggedIn === likeArray[i].id) return true;
   return false;
 };
-
 
 //The method that creates the photos fetched from Facebook.
 //Also creates both likes and the description for the picture.
