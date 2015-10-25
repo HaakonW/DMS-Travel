@@ -81,7 +81,7 @@ facebook.getNewLikesCount = function(pictureId){
   FB.api('/'+pictureId, 'GET', {"fields":"album"},
   function(response) {
     albumID = response.album.id;
-    view.createPhotoAlbum(albumID);
+    facebook.fetchPhotoData(albumID); //VIA CONTROLLER?
   }
 );
 };

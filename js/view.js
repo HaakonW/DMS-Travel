@@ -14,6 +14,7 @@ view.fadeHTML = function(){
 };
 
 // A method that creates the thubnails the user se on the first page.
+//Gets its parameter from facebook.createThumbs
 view.createThumbs= function(id, desc, likes, pic){
   view.fadeHTML();
   view.firstWelcome("top");
@@ -26,13 +27,19 @@ view.createThumbs= function(id, desc, likes, pic){
       $("#reviewArea").hide();
 };
 
-//A method that changes the heading of the page. From Home to feedback for example.
+//A method that changes the heading of the page.
+//From Home to feedback for example.
 view.firstWelcome = function(string){
   $("#firstWelcome").html(string).fadeIn(1500);
   if(string=== "top") $("#firstWelcome").fadeIn(1500).html("Check out these top Australian destinations!");
   if(string=== "feedback") $("#firstWelcome").fadeIn(1500).html("Feedback from our Customers");
+  // if(string=="first"){
+  //   firstWelcome.innerHTML = "Welcome To Dms Travel";
+  //   responseArea.innerHTML = "";
+  // }
 };
 
+//Creates the HTML for the photos in a spesific album
 //Gets the description, pictureID, a source for the thubnail Picture and a boolean if the picture got likes or not.
 //Then starts to generate the HTML to create the photos from the clicked Album.
 view.createPhotoAlbum = function (desc, picId, thumbSource, boolean){
@@ -46,18 +53,20 @@ view.createPhotoAlbum = function (desc, picId, thumbSource, boolean){
         albumArea.innerHTML += generateHTML;
     };
 
-
+//Displays the comments from the facebook site where where the Admin liked the post.
+//Hides all irrelevant content
 view.createReview = function(message){
   view.firstWelcome("feedback");
   $("#albumArea").hide();
-  $("#responseArea").hide();
   $("#docFont").hide();
+  $("#responseArea").hide();
   $("#reviewArea").show();
   var html ="<br>"+ message + "<br>";
   $("#reviewText").append(html);
-  $("#footer").hide();
 };
 
+//Method that displays the documentation for this project.
+//Hides all irrelevant content
 view.showDoc = function(){
   view.firstWelcome("Documentation");
   $("#albumArea").fadeOut(300);
@@ -74,6 +83,8 @@ view.showDoc = function(){
   responseArea.innerHTML = html;
 };
 
+//Method that displays about page for this project.
+//Hides all irrelevant content
 view.showAbout = function(){
   $("#footer").hide();
   $("#reviewArea").fadeOut(300);
@@ -86,9 +97,4 @@ view.showAbout = function(){
   html+= "<h3 class='smallCaps'>Student number: s5030763</h3>";
   html+="</div>";
   responseArea.innerHTML = html;
-};
-
-view.showSplash = function(){
-  firstWelcome.innerHTML = "Welcome To Dms Travel";
-  responseArea.innerHTML = "";
 };
