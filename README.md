@@ -5,5 +5,5 @@ Fetching data from a Facebook [page](https://www.facebook.com/DMS-Travel-8151570
 
 Hosted here -> [DMS Travel](http://haakonw.no/dms/travel/www/)
 
-Needs to be added as tester to login and use the full site.. 
+Needs to be added as tester to login and use the full site.
 
