@@ -7,3 +7,5 @@ Hosted here -> [DMS Travel](http://haakonw.no/dms/travel/www/)
 
 Needs to be added as tester to login and use the full site.
 
+![alt tag](http://i75.photobucket.com/albums/i304/unilli/Screen%20Shot%202016-02-08%20at%2019.34.13_zpscs12xs9c.png)
+
